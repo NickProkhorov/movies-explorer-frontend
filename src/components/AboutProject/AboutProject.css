@@ -1,0 +1,173 @@
+.project {
+  width: calc(100% - 140px);
+  margin: auto;
+  color: #fff;
+  padding-top: 110px;
+}
+
+.project__about {
+	font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+	font-style:  normal;
+	font-weight: 400;
+}
+
+.project__title {
+    font-size: 22px;
+    line-height: 27px;
+    margin: 0 0 23px;
+}
+
+.project__description {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #DADADA;
+}
+
+.project__stages {
+    font-size: 20px;
+    line-height: 24px;
+    max-width: 550px;
+    margin: 70px 0 26px;
+}
+
+.project__desc-stage {
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 40px;
+}
+
+.project__timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+  "one-week four-week four-week four-week four-week"
+  "backend frontend frontend frontend frontend";
+
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  margin-top: 110px;
+  margin-bottom: 110px;
+}
+
+.project__one-week {
+	color: #000;
+	grid-area: one-week;
+	background-color: #3DDC84;
+	min-height: 36px; 
+	margin: 0;    
+}
+
+.project__four-week {
+	grid-area: four-week;
+	background-color: #303030;
+	min-height: 36px;
+	margin: 0; 
+}
+
+.project__backend {
+	grid-area: backend;
+	color: #8B8B8B;
+	font-size: 11px;
+  line-height: 13px;
+}
+
+.project__frontend {
+	grid-area: frontend;
+	color: #8B8B8B;
+	
+}
+
+@media screen and (max-width: 768px) {
+	.project {
+		width: calc(100% - 100px);
+		padding-top: 90px;
+	}
+
+	.project__stages {
+		font-size: 20px;
+		line-height: 24px;
+		max-width: 319px;
+		margin: 70px 0 22px;
+	}
+
+	.project__desc-stage {
+		font-size: 12px;
+		line-height: 18px;
+		margin-right: 30px;
+	}
+
+	.project__timeline {
+		margin-top: 93px;
+		margin-bottom: 90px;
+	}
+}
+
+@media screen and (max-width: 492px) {
+	.project {
+		width: calc(100% - 28px);
+		padding-top: 70px;
+	}
+
+	.project__title {
+		font-size: 18px;
+		line-height: 22px;
+		font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+		font-style:  normal;
+		font-weight: 400;
+		margin: 0 0 28px;
+  }
+
+	.project__timeline {
+		display: grid;
+		grid-template-columns: 100px 184px;
+		grid-template-rows: 35px 35px;
+		font-size: 11px;
+		line-height: 13px;
+		text-align: center;
+		margin-top: 60px;
+		margin-bottom: 70px;
+	}
+
+	.project__description {
+		display: flex;
+		flex-direction: column;
+		border-top: 1px solid #DADADA;
+	}
+
+	.project__stages {
+		font-size: 18px;
+		line-height: 22px;
+		font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+        font-style:  normal;
+        font-weight: 400;
+		max-width: 550px;
+		margin: 56px 0 16px;
+	}
+
+	.project__desc-stage {
+		font-size: 12px;
+		line-height: 18px;
+		margin-right: 0;
+		margin: 0;
+	}
+
+	.project__one-week {
+		font-size: 11px;
+		line-height: 13px; 
+  }
+
+	.project__four-week {
+		font-size: 11px;
+		line-height: 13px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.project {
+		width: calc(100% - 28px);
+		padding-top: 70px;
+	}
+
+}

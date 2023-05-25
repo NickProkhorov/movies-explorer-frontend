@@ -1,0 +1,121 @@
+.portfolio {
+  width: calc(100% - 140px);
+  margin: 100px auto 125px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 400;
+}
+
+.portfolio__title {
+  color: #8B8B8B;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.portfolio__links {
+  padding: 0;
+  margin-top: 50px;
+  list-style-type: none;
+}
+
+.portfolio__link-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* max-width: 1140px; */
+  border-bottom: 1px solid #424242;
+  min-height: 89px;
+}
+
+.portfolio__link-block:last-child {
+    border-bottom: none;
+}
+
+.portfolio__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 50px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 400;  
+}
+
+.portfolio__link:hover {
+  opacity: 80%;
+}
+
+.portfolio__link-img {
+  width: 29px;
+  height: 29px;
+  background-image: url("../../images/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.portfolio__link-img:hover {
+  opacity: 70%;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    width: calc(100% - 100px);
+    margin: 90px auto 90px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+  }
+
+  .portfolio__link-img {
+    width: 27px;
+    height: 27px;
+    background-image: url("../../images/arrow768.svg");
+  }
+}
+
+@media screen and (max-width: 492px) {
+  .portfolio {
+    width: calc(100% - 60px);
+    margin: 70px auto 70px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .portfolio__links {
+    margin: 0;
+    margin-top: 40px;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__link-block {
+    min-height: 67px;
+  }
+
+  .portfolio__link-img {
+    width: 18px;
+    height: 18px;
+    background-image: url("../../images/portfolio_arrow_320.svg");
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .portfolio {
+    width: calc(100% - 28px);
+    padding: 0;
+  }
+}
