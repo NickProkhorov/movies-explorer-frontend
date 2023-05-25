@@ -1,79 +1,79 @@
 .headermenu {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0;
-    margin-left: 44px;
-    padding: 0;
-    list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  margin-left: 44px;
+  padding: 0;
+  list-style-type: none;
+
+  color: #fff;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.headermenu-element{
+  margin-left: 0;
+}
   
-    color: #fff;
-    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-    font-style:  normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-  }
+.headermenu-element:nth-child(2n){
+  margin-left: 16px;
+}
 
-  .headermenu-element{
-    margin-left: 0;
-  }
-  
-  .headermenu-element:nth-child(2n){
-    margin-left: 16px;
-  }
+.headermenu-link {
+  color:#fff;
+  text-decoration: none;
+}
 
-  .headermenu-link {
-    color:#fff;
-    text-decoration: none;
-  }
+.headermenu-link:hover {
+  opacity: 80%;
+}
 
-  .headermenu-link:hover {
-    opacity: 80%;
-  }
+.headermenu__account {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #202020;
+  position: absolute;
+  right: 0;
+  top: 6px;
+}
 
-  .headermenu__account {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #202020;
-    position: absolute;
-    right: 0;
-    top: 6px;
-  }
+.headermenu__burgermenu {
+  display: none;
+}
 
-  .headermenu__burgermenu {
-    display: none;
-  }
-  
-  .headermenu__account-logo {
-    width: 26px;
-    height: 26px;
-    border: 0;
-    border-radius: 50%;
-    background-color: #313131;
-    background-image: url('../../images/account-img.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: 7px;
-    cursor: pointer;
-  }
+.headermenu__account-logo {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #313131;
+  background-image: url('../../images/account-img.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 7px;
+  cursor: pointer;
+}
 
-  .headermenu__account-logo:hover {
-    opacity: 70%;
-  }
+.headermenu__account-logo:hover {
+  opacity: 70%;
+}
 
-  .header__signup-link {
-    color: #fff;
-    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-    font-style:  normal;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 12px;
-    text-decoration: none;
-    margin-bottom: 6px;
-  }
+.header__signup-link {
+  color: #fff;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 12px;
+  text-decoration: none;
+  margin-bottom: 6px;
+}
 
   @media screen and (max-width: 768px) {
     .headermenu__account {
@@ -101,8 +101,6 @@
       padding: 0;
     }
   }
-
-  
 
   @media screen and (max-width: 320px) {
     
