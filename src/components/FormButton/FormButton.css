@@ -23,9 +23,9 @@
     }
   }
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 456px) {
     .formbutton {
-      width: 260px;
+      width: 100%;
       margin-bottom: 16px;
     }
   }

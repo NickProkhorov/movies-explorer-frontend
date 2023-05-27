@@ -6,18 +6,18 @@ function Portfolio() {
       <nav>
         <ul className="portfolio__links">
           <li className="portfolio__link-block">
-            <a href="https://github.com/NickProkhorov/how-to-learn" className="portfolio__link">Статичный сайт</a>
-              <a href="https://github.com/NickProkhorov/how-to-learn" className="portfolio__link-img">
+            <a href="https://nickprokhorov.github.io/how-to-learn/index.html#" className="portfolio__link" target="_blank" rel="noopener noreferrer">Статичный сайт</a>
+              <a href="https://nickprokhorov.github.io/how-to-learn/index.html#" className="portfolio__link-img" target="_blank" rel="noopener noreferrer">
               </a>
           </li>
           <li className="portfolio__link-block">
-            <a href="https://nickprokhorov.github.io/russian-travel/index.html" className="portfolio__link">Адаптивный сайт</a>
-            <a href="https://nickprokhorov.github.io/russian-travel/index.html" className="portfolio__link-img">
+            <a href="https://nickprokhorov.github.io/russian-travel/index.html" className="portfolio__link" target="_blank" rel="noopener noreferrer">Адаптивный сайт</a>
+            <a href="https://nickprokhorov.github.io/russian-travel/index.html" className="portfolio__link-img" target="_blank" rel="noopener noreferrer">
             </a>
           </li>
           <li className="portfolio__link-block">
-            <a href="https://nickprokhorov.github.io/mesto/" className="portfolio__link">Одностраничное приложение</a>
-            <a href="https://nickprokhorov.github.io/mesto/" className="portfolio__link-img"> 
+            <a href="https://nickprokhorov.github.io/mesto/" className="portfolio__link" target="_blank" rel="noopener noreferrer">Одностраничное приложение</a>
+            <a href="https://nickprokhorov.github.io/mesto/" className="portfolio__link-img" target="_blank" rel="noopener noreferrer">
             </a>
           </li>
         </ul>

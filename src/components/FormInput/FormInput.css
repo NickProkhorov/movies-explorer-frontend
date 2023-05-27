@@ -56,8 +56,8 @@
   top: 208px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 456px) {
   .forminput {
-    width: 260px;
+    width: 100%;
   }
 }

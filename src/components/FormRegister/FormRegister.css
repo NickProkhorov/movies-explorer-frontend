@@ -13,7 +13,7 @@
     margin-top: 69px;
   }
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 456px) {
     .formregister__handlers {
       margin-top: 157px;
     }

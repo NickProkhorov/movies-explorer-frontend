@@ -13,9 +13,14 @@
 }
 
 @media screen and (max-width: 492px) {
+    .movies {
+		width: calc(100% - 20px);
+		margin: auto;
+	}
+
 	.movies__line {
 		display: block;
-		width: calc(100% - 20px);
+		width: 100%;
 		margin: 10px auto 0;
 		padding-bottom: 10px;
 		border-bottom: 1px solid #424242;

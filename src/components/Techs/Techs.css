@@ -95,6 +95,11 @@
 
   .techs__links {
     width: calc(100% - 120px);
+    display:grid;
+	  justify-content:center;
+	  grid-template-columns: repeat(auto-fit, minmax(84px, 84px));
+	  column-gap: 10px;
+	  row-gap: 10px;
     margin: 83px auto 90px;
   }
 
@@ -102,7 +107,7 @@
 
 @media screen and (max-width: 492px) {
   .techs {
-    width: calc(100% - 60px);
+    width: calc(100% - 28px);
     background-color: #202020;
   }
 
@@ -158,7 +163,7 @@
 @media screen and (max-width: 320px) {
   
   .techs__chapter {
-    width: calc(100% - 28px);
+    width: 100%;
   }
 
   .techs__about {
