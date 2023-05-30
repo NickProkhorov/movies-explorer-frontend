@@ -1,0 +1,123 @@
+.footer {
+  min-height: 172px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  width: calc(100% - 140px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__project {
+  color: #8B8B8B;
+  margin: 79px auto 0;
+}
+
+.footer__about-project {
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid  rgba(66, 66, 66, 1);
+  margin-top: 20px;
+}
+
+.footer__copyright {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.footer__links {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  list-style-type: none; 
+  display: flex;
+  flex-direction: row;
+}
+
+.footer__link {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.footer__link:hover {
+  opacity: 80%;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    width: calc(100% - 60px);
+  }
+
+  .footer__project {
+    margin: 79px auto 0;
+  }
+}
+
+@media screen and (max-width: 492px) {
+  .footer {
+    max-width: 432px;
+  }
+
+  .footer__project {
+    color: #8B8B8B;
+    margin: 79px auto 20px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__about-project {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    border-top: 1px solid rgba(66, 66, 66, 1);
+    margin-top: 0;
+  }
+
+  .footer__copyright {
+    color: #8B8B8B;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style:  normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__links {
+    list-style-type: none; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    margin-top: 30px;
+  }
+
+  .footer__link-element {
+    margin-bottom: 12px;
+  }
+
+  .footer__link-element:last-child {
+    margin-bottom: 0;
+  }
+
+  .footer__link {
+    color: #fff;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 0;
+  }
+  
+}
+
+@media screen and (max-width: 492px) {
+  .footer {
+    width: calc(100% - 20px);
+  }
+}
