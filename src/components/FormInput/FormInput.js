@@ -1,11 +1,21 @@
 function FormInput(props){
-    
+	  
   return (
     <>
-		<label htmlFor="email-input" className="forminput__label">{props.label}</label>
-		<input id="email-input" type={props.type} name={props.name} className={`forminput`} minLength="8" maxLength="30" required/>
-		<span className={`forminput__error forminput__error-${props.name}`}>Что-то пошло не так...</span>
-	</> 
+			<label htmlFor={`${props.name}-input`} className="forminput__label">{props.label}</label>
+			<input 
+				id={`${props.name}-input`}
+				type={props.type} 
+				name={props.name} 
+				className={`forminput`}
+				value={props.value}
+				minLength={props.minLength}
+				maxLength={props.maxLength}
+				onChange={props.handleChange}
+				required
+			/>
+			<span className={`forminput__error forminput__error-${props.name}`}>{props.errorMsg}</span>
+	  </>
   )
 }
   

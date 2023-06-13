@@ -2,7 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import HeaderMenu from "../HeaderMenu/HeaderMenu";
 import HeaderUnauth from "../HeaderUnauth/HeaderUnauth";
 
-function Header() { 
+function Header(props) { 
     
     return (
      
@@ -13,7 +13,7 @@ function Header() {
                 <Link to="/">
                   <div className="header__logo"></div>
                 </Link>
-                <HeaderUnauth />
+                { props.loggedIn ? <HeaderMenu /> : <HeaderUnauth /> }
               </header>
             </>
           }
@@ -24,7 +24,7 @@ function Header() {
                 <Link to="/">
                   <div className="header__logo"></div>
                 </Link>
-                <HeaderMenu />
+                { props.loggedIn ? <HeaderMenu /> : <HeaderUnauth /> }
               </header>
             </>
           }
@@ -35,7 +35,7 @@ function Header() {
                 <Link to="/">
                   <div className="header__logo"></div>
                 </Link>
-                <HeaderMenu />
+                { props.loggedIn ? <HeaderMenu /> : <HeaderUnauth /> }
               </header>
             </>
           }
@@ -46,7 +46,7 @@ function Header() {
                 <Link to="/">
                   <div className="header__logo"></div>
                 </Link>
-                <HeaderMenu />
+                { props.loggedIn ? <HeaderMenu /> : <HeaderUnauth /> }
               </header>
             </>
           }
@@ -57,7 +57,7 @@ function Header() {
                 <Link to="/">
                   <div className="header__logo"></div>
                 </Link>
-                <HeaderMenu />
+                { props.loggedIn ? <HeaderMenu /> : <HeaderUnauth /> }
               </header>
             </>
           }

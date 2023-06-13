@@ -3,6 +3,10 @@
   margin: 50px auto 80px;
 }
 
+.moremovies_hide {
+  display: none;
+}
+
 .moremovies__button-container {
   max-width: 1140px; 
   display: flex;

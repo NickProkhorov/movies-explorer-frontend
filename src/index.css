@@ -30,6 +30,9 @@
 @import url(./components/FormButton/FormButton.css);
 @import url(./components/FormInput/FormInput.css);
 
+@import url(./components/FormErrorMsg/FormErrorMsg.css);
+
+@import url(./components/InfoToolTip/InfoToolTip.css);
 
 @import url(./components/SearchForm/SearchForm.css);
 @import url(./components/FilterCheckbox/FilterCheckbox.css);

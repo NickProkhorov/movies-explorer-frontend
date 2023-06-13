@@ -1,14 +1,20 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { savedmovies } from '../../utils/constants';
 
 function SavedMovies(props){
     
   return (
         <section className="savedmovies">
-          <SearchForm />
+          <SearchForm
+            handleSetShortDuration={props.handleSetShortDuration} 
+            isShortDuration={props.isShortDuration}
+          />
           <div className="savedmovies__line"></div>
-          <MoviesCardList movies={savedmovies}/>
+          <MoviesCardList 
+            movies={props.movies} 
+            savedMovies={props.savedMovies} 
+            handleDeleteMovie={props.handleDeleteMovie}
+          />
         </section>
     )
   }

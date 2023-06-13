@@ -12,6 +12,9 @@
     background-color: #4285F4;
     border-radius: 3px;
   }
+  .formbutton_disabled {
+    background-color: #91959a;
+  }
   
   .formbutton:hover {
     opacity: 80%;

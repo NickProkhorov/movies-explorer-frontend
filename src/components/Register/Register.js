@@ -11,7 +11,7 @@ function Register(props){
         </Link>
         <h2 className="loginform__heading">{props.title}</h2>
         {
-          <FormRegister submitValue={props.submitValue}/>
+          <FormRegister submitValue={props.submitValue} handleRegister={props.handleRegister} errorMsg={props.errorMsg}/>
         }
       </div>
       <div className='loginform__question'>
@@ -19,7 +19,6 @@ function Register(props){
         <Link to="/signin" className='loginform__link'>{props.link}</Link>
       </div> 
     </section>
-
     )
 }
 
