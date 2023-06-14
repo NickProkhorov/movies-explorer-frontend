@@ -1,6 +1,6 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import {useFormWithValidation} from '../Validator/Validator';
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function SearchForm(props){
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
@@ -13,7 +13,6 @@ function SearchForm(props){
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(`handleSubmit(e) SearchForm`);
     props.handleGetMovies(values.keyword);
   }
     

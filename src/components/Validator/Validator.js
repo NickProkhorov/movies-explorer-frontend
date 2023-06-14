@@ -5,7 +5,6 @@ export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-  // const keyWordErrorMsg = 'Нужно ввести ключевое слово';
 
   const handleChange = (event) => {
     
@@ -13,7 +12,6 @@ export function useFormWithValidation() {
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
-    // setErrors({...errors, [name]: ('keyword' in errors) ? target.setCustomValidity(keyWordErrorMsg) : target.validationMessage });
     setErrors({...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
 

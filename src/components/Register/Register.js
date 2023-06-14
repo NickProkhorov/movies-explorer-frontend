@@ -11,7 +11,12 @@ function Register(props){
         </Link>
         <h2 className="loginform__heading">{props.title}</h2>
         {
-          <FormRegister submitValue={props.submitValue} handleRegister={props.handleRegister} errorMsg={props.errorMsg}/>
+          <FormRegister 
+            submitValue={props.submitValue} 
+            handleRegister={props.handleRegister} 
+            isInfoTooltipOpen={props.isInfoTooltipOpen} 
+            tooltipMessage={props.tooltipMessage}
+          />
         }
       </div>
       <div className='loginform__question'>

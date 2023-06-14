@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 
-function HeaderMenu() {
+function HeaderMenu(props) {
+
+	function handleOpen(){
+		props.handleOpenBurger();
+	}
+
 	return (
 		<nav>
 			<ul className="headermenu">
@@ -17,7 +22,7 @@ function HeaderMenu() {
 							<button className="headermenu__account-logo"></button>
 						</Link>						
 					</div>
-					<button className="headermenu__burgermenu"></button>
+					<button className="headermenu__burgermenu" onClick={handleOpen}></button>
 				</li>
 			</ul>
 		</nav>

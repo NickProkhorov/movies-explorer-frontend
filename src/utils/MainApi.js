@@ -6,20 +6,15 @@ class API {
 		this._headers = headers;
 	}
 
-	// getAllPageData(){
-	//     return Promise.all([this.getProfile(), this.getAllMovies()])
-	// }
- //запросить данные пользователя
 	getProfile(){
-
-		return fetch(`${this._url}users/me`, { //getCurrentUser
+		return fetch(`${this._url}users/me`, { 
 			headers: this._headers
 		})
 		.then(this._checkResponse)
 	}
 
 	setUserInfo(data){
-		return fetch(`${this._url}users/me`, { //updateUserProfile
+		return fetch(`${this._url}users/me`, { 
 			method: 'PATCH',
 			headers: this._headers,
 			body: JSON.stringify({
@@ -41,7 +36,6 @@ class API {
 	}
 
 	createMovie(movie) {
-		console.log(movie.image);
 		return fetch(`${this._url}movies/`, {
 			method: 'POST',
 			headers: this._headers,
@@ -63,27 +57,19 @@ class API {
 	}
 
 	deleteMovie(id){
-			return fetch(`${this._url}movies/${id}/`, {
-				method: 'DELETE',
-				headers: this._headers
-			})
-			.then(this._checkResponse)
+		return fetch(`${this._url}movies/${id}/`, {
+			method: 'DELETE',
+			headers: this._headers
+		})
+		.then(this._checkResponse)
 	}
 
-	changeSaveMovieStatus(id, isLiked){ //changeLikeCardStatus
-			return isLiked ? this._addLike(id) : this._deleteLike(id)
-	}
-
-	_addLike(id){ // change on saved
-			return fetch(`${this._url}cards/${id}/likes`, {
-				method: 'PUT',
-				headers: this._headers
-			})
-			.then(this._checkResponse)
+	changeSaveMovieStatus(id, isLiked){
+		return isLiked ? this._addLike(id) : this._deleteLike(id)
 	}
 
 	_checkResponse(res){
-			return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} ${res.statusText}`)
+		return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} ${res.statusText}`)
 	}
 }
 
@@ -91,7 +77,7 @@ const apiConfig = {
     baseUrl:'http://localhost:3000/',
     headers:{
     	"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
-        "Content-Type": 'application/json'
+      "Content-Type": 'application/json'
     }   
   }
 

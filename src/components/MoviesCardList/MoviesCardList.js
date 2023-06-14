@@ -2,10 +2,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useEffect, useState } from 'react';
 
 function MoviesCardList(props){
-	// console.log(`props: ${JSON.stringify(props.handleSetRender)}`);
 
   const isSavedMovie = props.movies.some(i => i.hasOwnProperty('movieId'));
-	// const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0});
   const [screenWidth, setScreenWidth ] = useState(window.innerWidth);
 
 	useEffect(()=>{
@@ -13,18 +11,23 @@ function MoviesCardList(props){
       setTimeout(() => {
         setScreenWidth(window.innerWidth);
       }, 1000);
-			console.log(`screenWidth: ${screenWidth}`);
 		};	
 
 		if (screenWidth >= 1280) {
 			props.handleSetRender({startShow: 12, addShow: 3});
-		} else if (screenWidth >= 768) {
+		} else if (screenWidth <= 889 && screenWidth >= 769 ) {
+			props.handleSetRender({startShow: 7, addShow: 7});
+		} else if ( screenWidth === 768) {
 			props.handleSetRender({startShow: 8, addShow: 2});
+		} else if ( screenWidth < 768 && screenWidth >= 493 ) {
+			props.handleSetRender({startShow: 7, addShow: 7});
+		} else if ( screenWidth <= 492) {
+			props.handleSetRender({startShow: 5, addShow: 2});	
 		} else {
 			props.handleSetRender({startShow: 5, addShow: 2});
 		}
 
-	}, [screenWidth, props.renderSet.startShow]);
+	}, [screenWidth]);
 
 	return (
 		<section className="moviescardlist">

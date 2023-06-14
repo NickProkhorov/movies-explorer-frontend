@@ -1,10 +1,8 @@
-import { useState } from 'react'; 
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import { MOVIES_API_IMAGE_LINK } from '../../utils/constants';
 
 function MoviesCard(props){
 
-  
   const isSavedMarker = props.savedMovies.some(i => i.movieId === props.movie.id );
 
   const location = useLocation().pathname;
@@ -14,7 +12,7 @@ function MoviesCard(props){
   const delMovieClassName = isMovies ? (`moviescard__delete-movie`) : ('moviescard__delete-movie moviescard__delete-movie_active');
 
   function handleSave() { 
-    props.handleSaveMovie(props.movie);  
+    props.handleSaveMovie(props.movie);
   } 
 
   function handleDelete() { 
@@ -23,7 +21,7 @@ function MoviesCard(props){
    
   return (
     <li className="moviescard">
-      <Link to={props.movie.trailerLink} target="_blank"><img className="moviescard__image" alt="постер фильма" src={ props.isSavedMovie ? props.movie.image : MOVIES_API_IMAGE_LINK + props.movie.image.url} /></Link>
+      <a href={props.movie.trailerLink} target="_blank"><img className="moviescard__image" alt="постер фильма" src={ props.isSavedMovie ? props.movie.image : MOVIES_API_IMAGE_LINK + props.movie.image.url} /></a>
       <div className="moviescard__save-area">
         <button className={saveButtonClassName} type="button" onClick={handleSave}>Сохранить</button>
         <div className={saveMarkerClassName}></div>

@@ -11,7 +11,12 @@ function Login(props){
       </Link>
         <h2 className="loginform__heading">{props.title}</h2>
         {
-          <FormLogin submitValue={props.submitValue} handleLogin={props.handleLogin}/>
+          <FormLogin 
+            submitValue={props.submitValue} 
+            handleLogin={props.handleLogin}
+            isInfoTooltipOpen={props.isInfoTooltipOpen}
+            tooltipMessage={props.tooltipMessage}
+          />
         }
       </div>
       <div className='loginform__question'>
@@ -23,3 +28,6 @@ function Login(props){
 }
 
 export default Login;
+
+ 
+            

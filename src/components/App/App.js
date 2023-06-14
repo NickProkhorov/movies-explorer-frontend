@@ -21,7 +21,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 
-import { searchMovies, filterDurationMovies } from '../MoviesFinder/MoviesFinder'
+import { searchMovies, filterDurationMovies } from '../MoviesFinder/MoviesFinder';
+import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID } from '../../utils/constants';
 
 function App() {
 
@@ -29,7 +30,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [tooltipMessage, setTooltipMessage] = useState('');
-  const [userCheckData, setUserCheckData ] = useState({userId:"", email:""});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
  
@@ -80,10 +80,11 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('shortDuration', isShortDuration);
-    //проверка массива сохраненных фильмов при изменении состояния isShortDuration
-    if (isShortDuration) {
+   
+    if (isShortDuration && loggedIn) {
       setSavedMovies(filterDurationMovies (savedMovies));
-    } else {
+      setMovies(filterDurationMovies (movies));
+    } else if (!isShortDuration && loggedIn) { 
       mainApi.getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
@@ -121,6 +122,13 @@ function App() {
         tokenCheck();  
       })
       .catch((error) => {
+        setIsInfoTooltipOpen(true);
+        if(error === "Ошибка: 401 Unauthorized") {
+          setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
+          setTimeout(setIsInfoTooltipOpen(false), 3000 );
+        } else {
+          setTooltipMessage(INTERNAL_SERVER_ERROR);
+        }
         console.log(`Ошибка при авторизации: ${error}`);
       })
   }
@@ -139,8 +147,15 @@ function App() {
         tokenCheck();
       })
       .catch((error)=>{
-        setErrorMsg(error);
-        console.log(error);
+        setIsInfoTooltipOpen(true);
+        if(error === "Ошибка: 409 Conflict") {
+          setTooltipMessage(USER_ALREADY_EXIST);
+          setTimeout(setIsInfoTooltipOpen(false), 3000 );
+        } else {
+          setTooltipMessage(INTERNAL_SERVER_ERROR);
+          // setTimeout(setIsInfoTooltipOpen(false), 3000 );
+        }
+        console.log(JSON.stringify(error));
       })
   }
 
@@ -156,7 +171,6 @@ function App() {
   }
 
   function handleGetMovies(keyWord){
-    console.log(`сработал handleGetMovies`);
     setIsPreload(true);
     setKeyWord(keyWord);
     
@@ -171,7 +185,6 @@ function App() {
         foundMovies = searchMovies(moviesData, keyWord);
       }
       foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
-      console.log(`foundMovies: ${foundMovies}`);
       setMovies(foundMovies); 
     })
     .catch((error)=>{
@@ -185,8 +198,7 @@ function App() {
   function handleSaveMovie(movie){
     return mainApi.createMovie(movie)
     .then((res)=>{
-      setSavedMovies([res,...savedMovies]);
-      console.log(`handleSaveMovie savedMovies: ${savedMovies}`);    
+      setSavedMovies([res,...savedMovies]);    
     })
     .catch((error)=>{
       console.log(error);
@@ -217,6 +229,14 @@ function App() {
     setLoggedIn(false);  
   }
 
+  function handleOpenBurger(){
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  }
+  
+  function handleCloseBurger(){
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  }
+
   function closeAllPopups(){
     setIsInfoTooltipOpen(false);
     setIsBurgerMenuOpen(false);
@@ -224,7 +244,7 @@ function App() {
   
   return (
     <div>
-        <Header loggedIn={loggedIn}/>
+        <Header loggedIn={loggedIn} handleOpenBurger={handleOpenBurger}/>
         <Routes>
           <Route path="/signin" element ={
             <Login 
@@ -234,6 +254,8 @@ function App() {
               question="Ещё не зарегистрированы?" 
               link="Регистрация" 
               handleLogin={handleLogin}
+              tooltipMessage={tooltipMessage}
+              isInfoTooltipOpen={isInfoTooltipOpen}
             />
             }
           />
@@ -246,7 +268,8 @@ function App() {
               question="Уже зарегистрированы?" 
               link="Войти" 
               handleRegister={handleRegister}
-              errorMsg={errorMsg}
+              tooltipMessage={tooltipMessage}
+              isInfoTooltipOpen={isInfoTooltipOpen}
             />
             }
           />
@@ -304,12 +327,7 @@ function App() {
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <BurgerMenu />
-        <InfoToolTip 
-          isOpen={isInfoTooltipOpen}
-          onClose={closeAllPopups}
-          message={tooltipMessage}
-        />
+        <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} handleCloseBurger={handleCloseBurger}/>
         <Footer />  
     </div>
   );

@@ -3,18 +3,14 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreMovies from '../MoreMovies/MoreMovies';
 import Preloader from '../Preloader/Preloader';
 import { NTHG_FOUND_MSG } from '../../utils/constants';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function Movies(props){
 
-  // [arrLength, setArrLength] = useState(0);
-  // console.log(`Movies(props): ${JSON.stringify(props)}`);
-  // const [resultMovies, setResultMovies ] = useState([]);
   const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0});
  
   function handleSetRender(setting){
-    setRenderSet(setting.startShow, setting.addShow);
-    console.log(JSON.stringify(renderSet));
+    setRenderSet(setting);
   }
   
   return (
@@ -36,8 +32,13 @@ function Movies(props){
             handleDeleteMovie={props.handleDeleteMovie}
           />    
       }
-      <p className="movies__errormsg">{props.isNthFound ? NTHG_FOUND_MSG : ''}</p> 
-      <MoreMovies handleSetRender={handleSetRender}/>
+      <p className="movies__errormsg">{props.isNthFound ? NTHG_FOUND_MSG : ''}</p>
+       {(props.movies.length > props.movies.slice(0, renderSet.startShow).length) ? 
+       <MoreMovies 
+        handleSetRender={handleSetRender}
+        renderSet={renderSet}
+        /> : 
+       ''}
     </section>
   )
 }
