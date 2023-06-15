@@ -14,7 +14,7 @@ function Register(props){
           <FormRegister 
             submitValue={props.submitValue} 
             handleRegister={props.handleRegister} 
-            isInfoTooltipOpen={props.isInfoTooltipOpen} 
+            isRegisterErrorField={props.isRegisterErrorField} 
             tooltipMessage={props.tooltipMessage}
           />
         }

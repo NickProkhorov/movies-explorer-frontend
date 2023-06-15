@@ -1,0 +1,32 @@
+.registerErrorField {
+	z-index: 2;
+	opacity: 0;
+	visibility: hidden;
+	transition: visibility .3s, opacity .3s linear;
+}
+
+.registerErrorField_opened {
+  opacity: 1;
+	visibility: visible;
+	transition: visibility .3s, opacity .3s linear;
+}
+
+.registerErrorField__container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #202020;
+	position: relative;
+}
+
+.registerErrorField__heading {
+  color: #EE3465;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style:  normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 10px 0 10px;
+  max-width: 100%;
+  text-align: center;
+}

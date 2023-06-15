@@ -2,7 +2,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreMovies from '../MoreMovies/MoreMovies';
 import Preloader from '../Preloader/Preloader';
-import { NTHG_FOUND_MSG } from '../../utils/constants';
+import { NTHG_FOUND_MSG, GET_BF_ERROR } from '../../utils/constants';
 import { useState } from 'react';
 
 function Movies(props){
@@ -32,7 +32,8 @@ function Movies(props){
             handleDeleteMovie={props.handleDeleteMovie}
           />    
       }
-      <p className="movies__errormsg">{props.isNthFound ? NTHG_FOUND_MSG : ''}</p>
+      <p className="movies__errormsg">{props.isNthFound ? NTHG_FOUND_MSG : '' || props.isFailMovApiConnect ? GET_BF_ERROR : ''}</p>
+      {/* <p className="movies__errormsg">{props.isFailMovApiConnect ? GET_BF_ERROR : ''}</p> */}
        {(props.movies.length > props.movies.slice(0, renderSet.startShow).length) ? 
        <MoreMovies 
         handleSetRender={handleSetRender}

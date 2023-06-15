@@ -9,6 +9,7 @@ function MoviesCardList(props){
 	useEffect(()=>{
 		window.onresize = () => {
       setTimeout(() => {
+		console.log();
         setScreenWidth(window.innerWidth);
       }, 1000);
 		};	

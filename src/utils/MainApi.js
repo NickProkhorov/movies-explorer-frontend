@@ -38,7 +38,10 @@ class API {
 	createMovie(movie) {
 		return fetch(`${this._url}movies/`, {
 			method: 'POST',
-			headers: this._headers,
+			headers:{
+				"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+				"Content-Type": 'application/json'
+			},
 			body: JSON.stringify({
 				country: movie.country, 
 				director: movie.director, 
@@ -59,7 +62,10 @@ class API {
 	deleteMovie(id){
 		return fetch(`${this._url}movies/${id}/`, {
 			method: 'DELETE',
-			headers: this._headers
+			headers:{
+				"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+				"Content-Type": 'application/json'
+			},
 		})
 		.then(this._checkResponse)
 	}

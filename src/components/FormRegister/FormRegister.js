@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import FormInput from "../FormInput/FormInput";
 import FormButton from "../FormButton/FormButton";
-import InfoToolTip from "../InfoToolTip/InfoToolTip";
+import RegisterErrorField from "../RegisterErrorField/RegisterErrorField";
 import {useFormWithValidation} from '../Validator/Validator';
-
 
 function FormRegister(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
@@ -30,7 +29,8 @@ function FormRegister(props){
             name="name"
             label="Имя" 
             minLength={2} 
-            maxLength={30} 
+            maxLength={30}
+            pattern={'^[а-яА-ЯёЁa-zA-Z0-9-]+$'}
             errorMsg={errors.name} 
             value={values.name||''} 
             handleChange={handleChange}/>
@@ -50,7 +50,7 @@ function FormRegister(props){
             errorMsg={errors.password} 
             value={values.password||''} 
             handleChange={handleChange}/>
-          <InfoToolTip isOpen={props.isInfoTooltipOpen} message={props.tooltipMessage}/>
+          <RegisterErrorField isOpen={props.isRegisterErrorField} message={props.tooltipMessage}/>
         </fieldset>
         <fieldset className="formregister__handlers">
           <FormButton submitValue={props.submitValue} btnIsValid={isValid} />

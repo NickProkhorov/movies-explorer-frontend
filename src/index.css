@@ -29,8 +29,8 @@
 @import url(./components/FormRegister/FormRegister.css);
 @import url(./components/FormButton/FormButton.css);
 @import url(./components/FormInput/FormInput.css);
-
-@import url(./components/FormErrorMsg/FormErrorMsg.css);
+@import url(./components/LoginErrorField/LoginErrorField.css);
+@import url(./components/RegisterErrorField/RegisterErrorField.css);
 
 @import url(./components/InfoToolTip/InfoToolTip.css);
 
@@ -47,6 +47,8 @@
 
 @import url(./components/Profile/Profile.css);
 @import url(./components/EditProfile/EditProfile.css);
+@import url(./components/EditProfileErrorField/EditProfileErrorField.css);
+
 
 @import url(./components/PageNotFound/PageNotFound.css);
 

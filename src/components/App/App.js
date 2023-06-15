@@ -12,7 +12,6 @@ import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import EditProfile from '../EditProfile/EditProfile';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
-import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -30,10 +29,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [tooltipMessage, setTooltipMessage] = useState('');
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isLoginErrorField, setIsLoginErrorField] = useState(false);
+  const [isRegisterErrorField, setIsRegisterErrorField] = useState(false);
+  const [isEditProfileErrorField, setIsEditProfileErrorField] = useState(false);
+
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
- 
-  const [errorMsg, setErrorMsg] = useState({});
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -42,6 +42,7 @@ function App() {
   const [isShortDuration, setIsShortDuration] = useState(false);
   const [keyWord, setKeyWord] = useState('');
   const [isNthFound, setIsNthFound] = useState(false);
+  const [isFailMovApiConnect, setIsFailMovApiConnect] = useState(false);
 
   let moviesData = new Array();
   let foundMovies = new Array();
@@ -122,10 +123,9 @@ function App() {
         tokenCheck();  
       })
       .catch((error) => {
-        setIsInfoTooltipOpen(true);
+        setIsLoginErrorField(true);
         if(error === "Ошибка: 401 Unauthorized") {
           setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
-          setTimeout(setIsInfoTooltipOpen(false), 3000 );
         } else {
           setTooltipMessage(INTERNAL_SERVER_ERROR);
         }
@@ -147,13 +147,11 @@ function App() {
         tokenCheck();
       })
       .catch((error)=>{
-        setIsInfoTooltipOpen(true);
+        setIsRegisterErrorField(true);
         if(error === "Ошибка: 409 Conflict") {
           setTooltipMessage(USER_ALREADY_EXIST);
-          setTimeout(setIsInfoTooltipOpen(false), 3000 );
         } else {
           setTooltipMessage(INTERNAL_SERVER_ERROR);
-          // setTimeout(setIsInfoTooltipOpen(false), 3000 );
         }
         console.log(JSON.stringify(error));
       })
@@ -164,8 +162,15 @@ function App() {
     .then((res)=>{ 
       setCurrentUser(res);
       navigate("/profile");
+      setIsEditProfileErrorField(false);
     })
     .catch((error)=>{
+      setIsEditProfileErrorField(true);
+      if(error === "Ошибка: 409 Conflict") {
+        setTooltipMessage(USER_ALREADY_EXIST);
+      } else {
+        setTooltipMessage(INTERNAL_SERVER_ERROR);
+      }
       console.log(error);
     })
   }
@@ -185,9 +190,11 @@ function App() {
         foundMovies = searchMovies(moviesData, keyWord);
       }
       foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
-      setMovies(foundMovies); 
+      setMovies(foundMovies);
+      setIsFailMovApiConnect(false); 
     })
     .catch((error)=>{
+      setIsFailMovApiConnect(true);
       console.log(error);
     })
     .finally(()=>{
@@ -238,7 +245,6 @@ function App() {
   }
 
   function closeAllPopups(){
-    setIsInfoTooltipOpen(false);
     setIsBurgerMenuOpen(false);
   }
   
@@ -255,7 +261,7 @@ function App() {
               link="Регистрация" 
               handleLogin={handleLogin}
               tooltipMessage={tooltipMessage}
-              isInfoTooltipOpen={isInfoTooltipOpen}
+              isLoginErrorField={isLoginErrorField}
             />
             }
           />
@@ -269,7 +275,7 @@ function App() {
               link="Войти" 
               handleRegister={handleRegister}
               tooltipMessage={tooltipMessage}
-              isInfoTooltipOpen={isInfoTooltipOpen}
+              isRegisterErrorField={isRegisterErrorField}
             />
             }
           />
@@ -285,6 +291,7 @@ function App() {
               savedMovies={savedMovies}
               isPreload={isPreload}
               isNthFound={isNthFound}
+              isFailMovApiConnect={isFailMovApiConnect}
               isShortDuration={isShortDuration}
             />
           }/>
@@ -321,6 +328,8 @@ function App() {
                 submitValue="Сохранить" 
                 link="Передумал"
                 handleUpdateUser={handleUpdateUser}
+                tooltipMessage={tooltipMessage}
+                isEditProfileErrorField={isEditProfileErrorField}
               />
             </CurrentUserContext.Provider>
             }

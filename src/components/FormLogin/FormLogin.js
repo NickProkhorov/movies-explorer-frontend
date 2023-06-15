@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import FormInput from "../FormInput/FormInput";
 import FormButton from "../FormButton/FormButton";
-import InfoToolTip from "../InfoToolTip/InfoToolTip";
 import {useFormWithValidation} from '../Validator/Validator';
+import LoginErrorField from "../LoginErrorField/LoginErrorField";
 
 function FormLogin(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
@@ -38,10 +38,9 @@ function handleSubmit(e){
           errorMsg={errors.password} 
           value={values.password||''} 
           handleChange={handleChange}/>
-        <InfoToolTip 
-          isOpen={props.isInfoTooltipOpen} 
+        <LoginErrorField 
+          isOpen={props.isLoginErrorField} 
           message={props.tooltipMessage}
-          isInfoTooltipOpen={props.isInfoTooltipOpen}
           tooltipMessage={props.tooltipMessage}
         />
       </fieldset>
