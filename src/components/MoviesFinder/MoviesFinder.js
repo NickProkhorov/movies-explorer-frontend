@@ -1,19 +1,18 @@
-export function searchMovies(allMovies, keyWord){
+export function searchMovies(movies, keyWord){
     
-    const searchResult = allMovies.filter((item) => {
-        return item.nameRU.toLowerCase().includes(keyWord.toLowerCase())
-        || item.nameEN.toLowerCase().includes(keyWord.toLowerCase())
-        || item.director.toLowerCase().includes(keyWord.toLowerCase())
-    });
+	const searchResult = movies.filter((item) => {
+		return item.nameRU.toLowerCase().includes(keyWord.toLowerCase())
+		|| item.nameEN.toLowerCase().includes(keyWord.toLowerCase())
+	});
 
-    return searchResult;
+  return searchResult;
 }
 
 export function filterDurationMovies(movies){
     
-    const searchResult = movies.filter((item) => {
-        return item.duration < 40;
-    });
+	const searchResult = movies.filter((item) => {
+			return item.duration < 40;
+	});
 
-    return searchResult;
+	return searchResult;
 }

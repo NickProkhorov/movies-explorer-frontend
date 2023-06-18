@@ -2,9 +2,11 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useEffect, useState } from 'react';
 
 function MoviesCardList(props){
-
   const isSavedMovie = props.movies.some(i => i.hasOwnProperty('movieId'));
+
   const [screenWidth, setScreenWidth ] = useState(window.innerWidth);
+	const moviesArray = props.isShortDuration ? props.movies.filter((m) => { return m.duration < 40 }) : props.movies;
+
 
 	useEffect(()=>{
 		window.onresize = () => {
@@ -34,7 +36,7 @@ function MoviesCardList(props){
 		<section className="moviescardlist">
 			<ul className="moviescardlist__cards">
 				{
-					props.movies.slice(0, props.renderSet.startShow).map((movie) => {
+					moviesArray.slice(0, props.renderSet.startShow).map((movie) => {
 						return <MoviesCard 
 										key={isSavedMovie ? movie.movieId : movie.id}
 										movie={movie}

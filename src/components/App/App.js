@@ -37,7 +37,7 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-
+  
   const [isPreload, setIsPreload] = useState(false);
   const [isShortDuration, setIsShortDuration] = useState(false);
   const [keyWord, setKeyWord] = useState('');
@@ -60,42 +60,8 @@ function App() {
       .catch((error)=>{
         console.log(error);
       })
-      mainApi.getSavedMovies()
-      .then((res) => {
-        setSavedMovies(res);
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
     }
   }, [loggedIn]);
-
-  useEffect(() => {
-
-    localStorage.setItem('foundMovies', JSON.stringify(movies));
-    localStorage.setItem('shortDuration', isShortDuration);
-    localStorage.setItem('keyWord', keyWord);
-    setIsPreload(false);
-
-  }, [movies]);
-
-  useEffect(() => {
-    localStorage.setItem('shortDuration', isShortDuration);
-   
-    if (isShortDuration && loggedIn) {
-      setSavedMovies(filterDurationMovies (savedMovies));
-      setMovies(filterDurationMovies (movies));
-    } else if (!isShortDuration && loggedIn) { 
-      mainApi.getSavedMovies()
-      .then((res) => {
-        setSavedMovies(res);
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
-    }
-  }, [isShortDuration]);
-
 
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -178,28 +144,57 @@ function App() {
   function handleGetMovies(keyWord){
     setIsPreload(true);
     setKeyWord(keyWord);
-    
-    return moviesApi.getAllMovies()
-
+    moviesApi.getAllMovies()
     .then((res) => {
       moviesData = res;
-      if (isShortDuration) {
-        foundMovies = searchMovies(moviesData, keyWord);
-        foundMovies = filterDurationMovies (foundMovies);
-      } else {
-        foundMovies = searchMovies(moviesData, keyWord);
-      }
-      foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
-      setMovies(foundMovies);
-      setIsFailMovApiConnect(false); 
+      localStorage.setItem('moviesData', JSON.stringify(moviesData));
+      localStorage.setItem('shortDuration', isShortDuration);
+      localStorage.setItem('keyWord', keyWord);
+      foundMovies = filterMovies(moviesData, keyWord);
+      setMovies(foundMovies); 
+      setIsFailMovApiConnect(false);
     })
     .catch((error)=>{
-      setIsFailMovApiConnect(true);
       console.log(error);
+      setIsFailMovApiConnect(true);
     })
     .finally(()=>{
       setIsPreload(false);
     })
+  }
+
+  function getSavedMovies(){
+    mainApi.getSavedMovies()
+    .then((res) => {
+      const savedMovies = res;
+      setSavedMovies(savedMovies);
+      setIsFailMovApiConnect(false);
+    })
+    .catch((error)=>{
+      console.log(error);
+      setIsFailMovApiConnect(true);
+    })
+  }
+
+  function filterMovies(movies, keyWord){
+    setKeyWord(keyWord);
+    foundMovies = searchMovies(movies, keyWord);
+    foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
+    return foundMovies;
+  }
+
+  function handleSearchMovies(keyWord){
+    moviesData = JSON.parse(localStorage.getItem('moviesData'));
+    localStorage.setItem('keyWord', keyWord);
+    localStorage.setItem('shortDuration', isShortDuration); 
+    foundMovies = filterMovies(moviesData, keyWord);
+    setMovies(foundMovies);
+  }
+
+  function handleSearchSavedMovies(keyWord){
+    localStorage.setItem('keyWord', keyWord);
+    foundMovies = filterMovies(savedMovies, keyWord);
+    setSavedMovies(foundMovies);
   }
 
   function handleSaveMovie(movie){
@@ -222,13 +217,13 @@ function App() {
     })
   }
 
-  function handleSetShortDuration(){
-    setIsShortDuration(!isShortDuration); 
+  function handleSetShortDuration(isShortDuration){
+    setIsShortDuration(isShortDuration); 
   }
 
   function signOut(){
     localStorage.removeItem('jwt');
-    localStorage.removeItem('foundMovies');
+    localStorage.removeItem('moviesData');
     localStorage.removeItem('shortDuration');
     localStorage.removeItem('keyWord');
 
@@ -242,10 +237,6 @@ function App() {
   
   function handleCloseBurger(){
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
-  }
-
-  function closeAllPopups(){
-    setIsBurgerMenuOpen(false);
   }
   
   return (
@@ -285,8 +276,10 @@ function App() {
               element={Movies}
               loggedIn={loggedIn}
               handleGetMovies={handleGetMovies}
+              handleSearchMovies={handleSearchMovies}
               handleSetShortDuration={handleSetShortDuration}
               handleSaveMovie={handleSaveMovie}
+              handleDeleteMovie={handleDeleteMovie}
               movies={movies}
               savedMovies={savedMovies}
               isPreload={isPreload}
@@ -302,8 +295,10 @@ function App() {
               savedMovies={savedMovies}
               loggedIn={loggedIn}
               handleSetShortDuration={handleSetShortDuration}
+              handleSearchSavedMovies={handleSearchSavedMovies}
               isShortDuration={isShortDuration}
               handleDeleteMovie={handleDeleteMovie}
+              getSavedMovies={getSavedMovies}
             />
           }/>
           <Route 

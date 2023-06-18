@@ -3,12 +3,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreMovies from '../MoreMovies/MoreMovies';
 import Preloader from '../Preloader/Preloader';
 import { NTHG_FOUND_MSG, GET_BF_ERROR } from '../../utils/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Movies(props){
 
   const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0});
- 
+  
   function handleSetRender(setting){
     setRenderSet(setting);
   }
@@ -17,6 +17,7 @@ function Movies(props){
     <section className="movies">
       <SearchForm 
         handleGetMovies={props.handleGetMovies}
+        handleSearchMovies={props.handleSearchMovies}
         handleSetShortDuration={props.handleSetShortDuration} 
         isShortDuration={props.isShortDuration}
       />
@@ -30,10 +31,10 @@ function Movies(props){
             handleSaveMovie={props.handleSaveMovie} 
             savedMovies={props.savedMovies}
             handleDeleteMovie={props.handleDeleteMovie}
+            isShortDuration={props.isShortDuration}
           />    
       }
       <p className="movies__errormsg">{props.isNthFound ? NTHG_FOUND_MSG : '' || props.isFailMovApiConnect ? GET_BF_ERROR : ''}</p>
-      {/* <p className="movies__errormsg">{props.isFailMovApiConnect ? GET_BF_ERROR : ''}</p> */}
        {(props.movies.length > props.movies.slice(0, renderSet.startShow).length) ? 
        <MoreMovies 
         handleSetRender={handleSetRender}

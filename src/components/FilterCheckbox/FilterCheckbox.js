@@ -1,7 +1,7 @@
 function FilterCheckbox(props){
     
 	function handleCheck() {
-		props.handleSetShortDuration();
+		props.handleSetShortDuration(!props.isShortDuration);
 	  }
 	
 	return (

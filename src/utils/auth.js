@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000/';
+export const BASE_URL = 'https://api.mexp.nomoredomains.monster/';
 
 export const createUser = (userdata) => {
 	return fetch (`${BASE_URL}signup`, { 

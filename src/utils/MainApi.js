@@ -70,17 +70,13 @@ class API {
 		.then(this._checkResponse)
 	}
 
-	changeSaveMovieStatus(id, isLiked){
-		return isLiked ? this._addLike(id) : this._deleteLike(id)
-	}
-
 	_checkResponse(res){
 		return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} ${res.statusText}`)
 	}
 }
 
 const apiConfig = {
-    baseUrl:'http://localhost:3000/',
+    baseUrl:'https://api.mexp.nomoredomains.monster/',
     headers:{
     	"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": 'application/json'

@@ -1,21 +1,35 @@
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import {useFormWithValidation} from '../Validator/Validator';
 import { useEffect } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import {useFormWithValidation} from '../Validator/Validator';
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props){
-  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const location = useLocation().pathname;
+  const navigate = useNavigate();
+  const isMovies = location === '/movies';
+  let storageMovies = Array();
   
   useEffect(() => {
-    setValues({
-      keyword: localStorage.getItem('keyWord')
-    });
-  }, [setValues]);
+    storageMovies = JSON.parse(localStorage.getItem('moviesData'));
+    if(isMovies && (storageMovies != null)){
+      values.keyword = localStorage.getItem('keyWord');
+      const isShortDuration = JSON.parse(localStorage.getItem('shortDuration'));
+      props.handleSetShortDuration(isShortDuration);
+      props.handleSearchMovies(values.keyword);
+    }
+  }, [navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.handleGetMovies(values.keyword);
+    if(isMovies) {
+      ( storageMovies === null || storageMovies.length === 0 ) ? props.handleGetMovies(values.keyword) : props.handleSearchMovies(values.keyword); 
+    } else {
+      props.handleSearchSavedMovies(values.keyword);
+    }
+    resetForm();
   }
-    
+
   return (
     <section className="searchform">
       <form className="searchform__search-block" onSubmit={handleSubmit}>

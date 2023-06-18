@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 function SavedMovies(props){
 
   const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0});
+
+  useEffect(()=>{
+    props.getSavedMovies();
+  }, []);
  
   function handleSetRender(setting){
     setRenderSet(setting);
@@ -15,6 +19,7 @@ function SavedMovies(props){
           <SearchForm
             handleSetShortDuration={props.handleSetShortDuration} 
             isShortDuration={props.isShortDuration}
+            handleSearchSavedMovies={props.handleSearchSavedMovies}
           />
           <div className="savedmovies__line"></div>
           <MoviesCardList 
@@ -23,6 +28,7 @@ function SavedMovies(props){
             handleSetRender={handleSetRender}
             savedMovies={props.savedMovies} 
             handleDeleteMovie={props.handleDeleteMovie}
+            isShortDuration={props.isShortDuration}
           />
         </section>
     )

@@ -30,7 +30,7 @@ function FormRegister(props){
             label="Имя" 
             minLength={2} 
             maxLength={30}
-            pattern={'^[а-яА-ЯёЁa-zA-Z0-9-]+$'}
+            pattern={'^[а-яА-ЯёЁa-zA-Z\s\-]+$'}
             errorMsg={errors.name} 
             value={values.name||''} 
             handleChange={handleChange}/>
