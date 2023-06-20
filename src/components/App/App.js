@@ -223,8 +223,7 @@ function App() {
     setMovies([]);
     setSavedMovies([]);
     setLoggedIn(false);
-    navigate('/'); // Записать роут в константу
-      
+    navigate('/signin'); 
   }
 
   function handleOpenBurger(){
