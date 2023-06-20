@@ -17,7 +17,7 @@ function MoviesCardList(props){
 		};	
 
 		if (screenWidth >= 1280) {
-			props.handleSetRender({startShow: 12, addShow: 3});
+			props.handleSetRender({startShow: 12, addShow: 3}); // записать в константу значения количества выводимых фильмов
 		} else if (screenWidth <= 889 && screenWidth >= 769 ) {
 			props.handleSetRender({startShow: 7, addShow: 7});
 		} else if ( screenWidth === 768) {

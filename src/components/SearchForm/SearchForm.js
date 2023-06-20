@@ -4,19 +4,17 @@ import {useFormWithValidation} from '../Validator/Validator';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props){
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const isMovies = location === '/movies';
   let storageMovies = Array();
   
   useEffect(() => {
-    storageMovies = JSON.parse(localStorage.getItem('moviesData'));
+    storageMovies = JSON.parse(localStorage.getItem('foundMovies'));
     if(isMovies && (storageMovies != null)){
       values.keyword = localStorage.getItem('keyWord');
-      const isShortDuration = JSON.parse(localStorage.getItem('shortDuration'));
-      props.handleSetShortDuration(isShortDuration);
-      props.handleSearchMovies(values.keyword);
+      // props.handleSearchMovies(values.keyword);
     }
   }, [navigate]);
 
@@ -27,7 +25,6 @@ function SearchForm(props){
     } else {
       props.handleSearchSavedMovies(values.keyword);
     }
-    resetForm();
   }
 
   return (

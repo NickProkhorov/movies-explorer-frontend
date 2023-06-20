@@ -18,7 +18,7 @@ class API {
 }
 
 const apiConfig = {
-	baseUrl:'https://api.nomoreparties.co/beatfilm-movies',
+	baseUrl:'https://api.nomoreparties.co/beatfilm-movies', // Записать в константу адрес сервера
 	headers:{
 		"Content-Type": 'application/json'
 	}   

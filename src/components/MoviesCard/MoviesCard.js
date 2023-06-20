@@ -1,5 +1,6 @@
 import { useLocation} from 'react-router-dom';
 import { MOVIES_API_IMAGE_LINK } from '../../utils/constants';
+import { useEffect } from 'react';
 
 function MoviesCard(props){
 

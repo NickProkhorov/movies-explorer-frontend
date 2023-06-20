@@ -7,7 +7,21 @@ import { useEffect, useState } from 'react';
 
 function Movies(props){
 
-  const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0});
+  const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0}); // записать в константу
+
+  useEffect(() => {
+    
+    if(localStorage.getItem('shortDuration') === 'true'){
+      props.handleSetShortDuration(true);
+    } else {
+      props.handleSetShortDuration(false);
+    }
+    
+    if(JSON.parse(localStorage.getItem('foundMovies') != null )){
+      props.setMovies(JSON.parse(localStorage.getItem('foundMovies')));
+    }
+    
+  },[])
   
   function handleSetRender(setting){
     setRenderSet(setting);

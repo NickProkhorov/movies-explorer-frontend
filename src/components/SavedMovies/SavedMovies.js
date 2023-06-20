@@ -8,6 +8,7 @@ function SavedMovies(props){
 
   useEffect(()=>{
     props.getSavedMovies();
+    props.handleSetShortDuration(false);
   }, []);
  
   function handleSetRender(setting){

@@ -76,7 +76,7 @@ class API {
 }
 
 const apiConfig = {
-    baseUrl:'https://api.mexp.nomoredomains.monster/',
+    baseUrl:'http://localhost:3000/', // https://api.mexp.nomoredomains.monster/  // Записать в константу адрес сервера
     headers:{
     	"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": 'application/json'
