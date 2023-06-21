@@ -34,7 +34,7 @@ function handleSubmit(e){
         <FormInput 
           type="password" 
           name="password"
-          label="Пароль" 
+          label="Пароль"
           errorMsg={errors.password} 
           value={values.password||''} 
           handleChange={handleChange}/>

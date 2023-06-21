@@ -4,6 +4,8 @@ import FormButton from "../FormButton/FormButton";
 import RegisterErrorField from "../RegisterErrorField/RegisterErrorField";
 import {useFormWithValidation} from '../Validator/Validator';
 
+import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN } from '../../utils/constants';
+
 function FormRegister(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
     
@@ -28,9 +30,9 @@ function FormRegister(props){
             type="text" 
             name="name"
             label="Имя" 
-            minLength={2} 
-            maxLength={30}
-            pattern={'^[а-яА-ЯёЁa-zA-Z\s\-]+$'}
+            minLength={MIN_LENGTH_VALUE} 
+            maxLength={MAX_LENGTH_VALUE}
+            pattern={REGEX_NAME_PATTERN}
             errorMsg={errors.name} 
             value={values.name||''} 
             handleChange={handleChange}/>
@@ -45,8 +47,8 @@ function FormRegister(props){
             type="password" 
             name="password"
             label="Пароль" 
-            minLength={4} 
-            maxLength={30} 
+            minLength={MIN_PASS_LENGTH_VALUE}
+            maxLength={MAX_LENGTH_VALUE}
             errorMsg={errors.password} 
             value={values.password||''} 
             handleChange={handleChange}/>

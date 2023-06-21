@@ -1,11 +1,14 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useEffect, useState } from 'react';
+import { START_SHOW_MOVIES_12, START_SHOW_MOVIES_8, START_SHOW_MOVIES_7, START_SHOW_MOVIES_5,
+  ADD_SHOW_MOVIES_2, ADD_SHOW_MOVIES_3, ADD_SHOW_MOVIES_7, SHORT_DURATION_VALUE, 
+	SCREENWIDTH_1280, SCREENWIDTH_889, SCREENWIDTH_769, SCREENWIDTH_768, SCREENWIDTH_493, SCREENWIDTH_492 } from '../../utils/constants';
 
 function MoviesCardList(props){
   const isSavedMovie = props.movies.some(i => i.hasOwnProperty('movieId'));
 
   const [screenWidth, setScreenWidth ] = useState(window.innerWidth);
-	const moviesArray = props.isShortDuration ? props.movies.filter((m) => { return m.duration < 40 }) : props.movies;
+	const moviesArray = props.isShortDuration ? props.movies.filter((m) => { return m.duration < SHORT_DURATION_VALUE }) : props.movies;
 
 
 	useEffect(()=>{
@@ -16,18 +19,18 @@ function MoviesCardList(props){
       }, 1000);
 		};	
 
-		if (screenWidth >= 1280) {
-			props.handleSetRender({startShow: 12, addShow: 3}); // записать в константу значения количества выводимых фильмов
-		} else if (screenWidth <= 889 && screenWidth >= 769 ) {
-			props.handleSetRender({startShow: 7, addShow: 7});
-		} else if ( screenWidth === 768) {
-			props.handleSetRender({startShow: 8, addShow: 2});
-		} else if ( screenWidth < 768 && screenWidth >= 493 ) {
-			props.handleSetRender({startShow: 7, addShow: 7});
-		} else if ( screenWidth <= 492) {
-			props.handleSetRender({startShow: 5, addShow: 2});	
+		if (screenWidth >= SCREENWIDTH_1280) {
+			props.handleSetRender({startShow: START_SHOW_MOVIES_12, addShow: ADD_SHOW_MOVIES_3}); // записать в константу значения количества выводимых фильмов
+		} else if (screenWidth <= SCREENWIDTH_889 && screenWidth >= SCREENWIDTH_769 ) {
+			props.handleSetRender({startShow: START_SHOW_MOVIES_7, addShow: ADD_SHOW_MOVIES_7});
+		} else if ( screenWidth === SCREENWIDTH_768) {
+			props.handleSetRender({startShow: START_SHOW_MOVIES_8, addShow: ADD_SHOW_MOVIES_2});
+		} else if ( screenWidth < SCREENWIDTH_768 && screenWidth >= SCREENWIDTH_493 ) {
+			props.handleSetRender({startShow: START_SHOW_MOVIES_7, addShow: ADD_SHOW_MOVIES_7});
+		} else if ( screenWidth <= SCREENWIDTH_492) {
+			props.handleSetRender({startShow: START_SHOW_MOVIES_5, addShow: ADD_SHOW_MOVIES_2});	
 		} else {
-			props.handleSetRender({startShow: 5, addShow: 2});
+			props.handleSetRender({startShow: START_SHOW_MOVIES_5, addShow: ADD_SHOW_MOVIES_2});
 		}
 
 	}, [screenWidth]);

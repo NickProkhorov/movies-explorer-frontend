@@ -14,7 +14,6 @@ function SearchForm(props){
     storageMovies = JSON.parse(localStorage.getItem('foundMovies'));
     if(isMovies && (storageMovies != null)){
       values.keyword = localStorage.getItem('keyWord');
-      // props.handleSearchMovies(values.keyword);
     }
   }, [navigate]);
 

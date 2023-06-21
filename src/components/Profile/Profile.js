@@ -3,13 +3,15 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProfileUpdatedMsg from '../ProfileUpdatedMsg/ProfileUpdatedMsg';
 
+import { HELLO_MSG } from '../../utils/constants';
+
 function Profile(props){
   const currentUser = useContext(CurrentUserContext);
   console.log(`Profile userdata ${JSON.stringify(currentUser)}`);
     
   return (
     <section className="profile">
-			<h2 className="profile__heading">{`Привет, ${currentUser.name}!`}</h2>
+			<h2 className="profile__heading">{`${HELLO_MSG}${currentUser.name}!`}</h2>
 			<div className='profile__username'>
 				<p className='profile__desc'>Имя</p>
 				<p className='profile__desc'>{currentUser.name}</p>

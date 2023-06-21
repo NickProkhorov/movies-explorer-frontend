@@ -7,6 +7,7 @@ import FormInput from '../FormInput/FormInput';
 import FormButton from '../FormButton/FormButton';
 import EditProfileErrorField from "../EditProfileErrorField/EditProfileErrorField";
 
+import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, REGEX_NAME_PATTERN } from '../../utils/constants';
 
 function EditProfile(props){
   const currentUser = useContext(CurrentUserContext);
@@ -32,9 +33,9 @@ function EditProfile(props){
               type="text" 
               name="name" 
               label="Имя" 
-              minLength={2} 
-              maxLength={30}
-              pattern={'^[а-яА-ЯёЁa-zA-Z0-9-]+$'}
+              minLength={MIN_LENGTH_VALUE} 
+              maxLength={MAX_LENGTH_VALUE}
+              pattern={REGEX_NAME_PATTERN}
               errorMsg={errors.name} 
               value={values.name||''} 
               handleChange={handleChange}

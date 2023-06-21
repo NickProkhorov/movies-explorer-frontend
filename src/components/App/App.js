@@ -21,7 +21,9 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 
 import { searchMovies } from '../MoviesFinder/MoviesFinder';
-import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID, PROFILE_UPDATED_SUCESSFULLY } from '../../utils/constants';
+import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID, PROFILE_UPDATED_SUCESSFULLY, 
+  UNAUTHORIZED_ERROR_401_CHECK, CONFLICT_ERROR_409_CHECK 
+} from '../../utils/constants';
 
 function App() {
 
@@ -70,7 +72,7 @@ function App() {
       .then((res)=>{ 
         setCurrentUser(res);
         setLoggedIn(true);
-        navigate("/movies"); //Записать в константу
+        navigate("/movies");
       })
       .catch((error)=>{
         console.log(error);
@@ -91,7 +93,7 @@ function App() {
       })
       .catch((error) => {
         setIsLoginErrorField(true);
-        if(error === "Ошибка: 401 Unauthorized") { // Записать в константу
+        if(error === UNAUTHORIZED_ERROR_401_CHECK) { // Записать в константу
           setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
         } else {
           setTooltipMessage(INTERNAL_SERVER_ERROR);
@@ -116,7 +118,7 @@ function App() {
       })
       .catch((error)=>{
         setIsRegisterErrorField(true);
-        if(error === "Ошибка: 409 Conflict") { // Записать роут в константу
+        if(error === CONFLICT_ERROR_409_CHECK) {
           setTooltipMessage(USER_ALREADY_EXIST);
         } else {
           setTooltipMessage(INTERNAL_SERVER_ERROR);
@@ -129,13 +131,13 @@ function App() {
     return mainApi.setUserInfo(userData)
     .then((res)=>{ 
       setCurrentUser(res);
-      navigate("/profile"); //Записать роут в константу
+      navigate("/profile");
       setIsEditProfileErrorField(true);
       setTooltipMessage(PROFILE_UPDATED_SUCESSFULLY);
     })
     .catch((error)=>{
       setIsEditProfileErrorField(true);
-      if(error === "Ошибка: 409 Conflict") { // Записать в константу
+      if(error === CONFLICT_ERROR_409_CHECK) {
         setTooltipMessage(USER_ALREADY_EXIST);
       } else {
         setTooltipMessage(INTERNAL_SERVER_ERROR);

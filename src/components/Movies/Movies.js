@@ -5,9 +5,11 @@ import Preloader from '../Preloader/Preloader';
 import { NTHG_FOUND_MSG, GET_BF_ERROR } from '../../utils/constants';
 import { useEffect, useState } from 'react';
 
+import { START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0 } from '../../utils/constants';
+
 function Movies(props){
 
-  const [renderSet, setRenderSet] = useState({startShow: 0, addShow: 0}); // записать в константу
+  const [renderSet, setRenderSet] = useState({startShow: START_SHOW_MOVIES_0, addShow: ADD_SHOW_MOVIES_0});
 
   useEffect(() => {
     
@@ -16,7 +18,7 @@ function Movies(props){
     } else {
       props.handleSetShortDuration(false);
     }
-    
+
     if(JSON.parse(localStorage.getItem('foundMovies') != null )){
       props.setMovies(JSON.parse(localStorage.getItem('foundMovies')));
     }
