@@ -4,6 +4,7 @@ const loginSuccessMsg = "Привет, ";
 const registerFailMsg = "Регистрация не удалась";
 const loginFailMsg = "Авторизация не удалась";
 
+const PROFILE_UPDATED_SUCESSFULLY = "Ваш профайл успешно обновлен!";
 const USER_ALREADY_EXIST = "Пользователь с такими данными уже существует";
 const EMAIL_OR_PASS_NOTVALID = "Неправильные почта или пароль";
 const INTERNAL_SERVER_ERROR = "Проблемы на сервере. Попробуйте еще раз немного попозже";
@@ -14,5 +15,5 @@ const GET_BF_ERROR = "Во время запроса произошла ошиб
 const MOVIES_API_IMAGE_LINK = "https://api.nomoreparties.co";
 
 
-export { MOVIES_API_IMAGE_LINK, NTHG_FOUND_MSG, GET_BF_ERROR, USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID};
+export { MOVIES_API_IMAGE_LINK, NTHG_FOUND_MSG, GET_BF_ERROR, USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID, PROFILE_UPDATED_SUCESSFULLY};
 

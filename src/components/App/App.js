@@ -21,7 +21,7 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 
 import { searchMovies } from '../MoviesFinder/MoviesFinder';
-import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID } from '../../utils/constants';
+import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID, PROFILE_UPDATED_SUCESSFULLY } from '../../utils/constants';
 
 function App() {
 
@@ -130,7 +130,8 @@ function App() {
     .then((res)=>{ 
       setCurrentUser(res);
       navigate("/profile"); //Записать роут в константу
-      setIsEditProfileErrorField(false);
+      setIsEditProfileErrorField(true);
+      setTooltipMessage(PROFILE_UPDATED_SUCESSFULLY);
     })
     .catch((error)=>{
       setIsEditProfileErrorField(true);
@@ -308,6 +309,8 @@ function App() {
                 submitValue="Редактировать" 
                 exitBtn="Выйти из аккаунта" 
                 signOut={signOut}
+                tooltipMessage={tooltipMessage}
+                isEditProfileErrorField={isEditProfileErrorField}
               />
             }
           />
