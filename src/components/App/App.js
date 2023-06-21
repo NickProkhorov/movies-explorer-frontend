@@ -14,7 +14,7 @@ import EditProfile from '../EditProfile/EditProfile';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
@@ -25,7 +25,7 @@ import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID } fro
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState( localStorage.getItem("loggedIn") || false );
   const [currentUser, setCurrentUser] = useState({});
 
   const [tooltipMessage, setTooltipMessage] = useState('');
@@ -82,7 +82,8 @@ function App() {
     return auth.login(userData)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem('jwt', res.token);  
+          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('loggedIn', true);  
         }
       })
       .then(()=>{
@@ -106,7 +107,8 @@ function App() {
       })
       .then((res)=> {
         if (res.token) {
-          localStorage.setItem('jwt', res.token);  
+          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('loggedIn', true); 
         }
       })
       .then(()=> {
@@ -236,9 +238,10 @@ function App() {
   
   return (
     <div>
+      <CurrentUserContext.Provider value={currentUser}>
         <Header loggedIn={loggedIn} handleOpenBurger={handleOpenBurger}/>
         <Routes>
-          <Route path="/signin" element ={
+          <Route path="/signin" element ={loggedIn ? <Navigate to="/"/> :
             <Login 
               title="Рады видеть!" 
               name="login" 
@@ -251,7 +254,7 @@ function App() {
             />
             }
           />
-          <Route path="/signup" element ={
+          <Route path="/signup" element ={ loggedIn ? <Navigate to="/"/> :
             <Register 
               title="Добро пожаловать!" 
               name="register" 
@@ -299,36 +302,33 @@ function App() {
           }/>
           <Route 
             path="/profile" element ={
-              <CurrentUserContext.Provider value={currentUser}>
-                <ProtectedRoute
-                  element={Profile}
-                  loggedIn={loggedIn}
-                  submitValue="Редактировать" 
-                  exitBtn="Выйти из аккаунта" 
-                  signOut={signOut}
-                />  
-              </CurrentUserContext.Provider>
+              <ProtectedRoute
+                element={Profile}
+                loggedIn={loggedIn}
+                submitValue="Редактировать" 
+                exitBtn="Выйти из аккаунта" 
+                signOut={signOut}
+              />
             }
           />
           <Route path="/profile-edit" element ={
-            <CurrentUserContext.Provider value={currentUser}>
-              <EditProfile 
-                heading="Измените данные профиля" 
-                labelName="Имя" 
-                labelEmail="Email" 
-                submitValue="Сохранить" 
-                link="Передумал"
-                handleUpdateUser={handleUpdateUser}
-                tooltipMessage={tooltipMessage}
-                isEditProfileErrorField={isEditProfileErrorField}
-              />
-            </CurrentUserContext.Provider>
+            <EditProfile 
+              heading="Измените данные профиля" 
+              labelName="Имя" 
+              labelEmail="Email" 
+              submitValue="Сохранить" 
+              link="Передумал"
+              handleUpdateUser={handleUpdateUser}
+              tooltipMessage={tooltipMessage}
+              isEditProfileErrorField={isEditProfileErrorField}
+            />
             }
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} handleCloseBurger={handleCloseBurger}/>
-        <Footer />  
+        <Footer /> 
+        </CurrentUserContext.Provider>   
     </div>
   );
 }
