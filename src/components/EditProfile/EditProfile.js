@@ -37,7 +37,7 @@ function EditProfile(props){
               maxLength={MAX_LENGTH_VALUE}
               pattern={REGEX_NAME_PATTERN}
               errorMsg={errors.name} 
-              value={values.name||''} 
+              value={values.name||''}
               handleChange={handleChange}
             />
             <FormInput 

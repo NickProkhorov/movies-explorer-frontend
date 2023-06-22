@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react';
 import { START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0 } from '../../utils/constants';
 
 function Movies(props){
-
   const [renderSet, setRenderSet] = useState({startShow: START_SHOW_MOVIES_0, addShow: ADD_SHOW_MOVIES_0});
 
   useEffect(() => {
+    props.getSavedMovies();
     
     if(localStorage.getItem('shortDuration') === 'true'){
       props.handleSetShortDuration(true);

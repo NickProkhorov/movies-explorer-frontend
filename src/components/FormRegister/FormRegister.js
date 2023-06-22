@@ -4,7 +4,7 @@ import FormButton from "../FormButton/FormButton";
 import RegisterErrorField from "../RegisterErrorField/RegisterErrorField";
 import {useFormWithValidation} from '../Validator/Validator';
 
-import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN } from '../../utils/constants';
+import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PATTERN } from '../../utils/constants';
 
 function FormRegister(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
@@ -26,24 +26,25 @@ function FormRegister(props){
     return (
       <form className="formlogin" name={props.name} onSubmit={handleSubmit}>
         <fieldset className="formregister__input-container">
-          <FormInput 
+          <FormInput
             type="text" 
             name="name"
             label="Имя" 
             minLength={MIN_LENGTH_VALUE} 
             maxLength={MAX_LENGTH_VALUE}
-            pattern={REGEX_NAME_PATTERN}
+            // pattern={ REGEX_NAME_PATTERN}
             errorMsg={errors.name} 
             value={values.name||''} 
             handleChange={handleChange}/>
           <FormInput 
             type="email" 
             name="email"
-            label="E-mail" 
+            label="E-mail"
+            // pattern={REGEX_EMAIL_PATTERN}
             errorMsg={errors.email} 
             value={values.email||''} 
             handleChange={handleChange}/>
-          <FormInput 
+          <FormInput
             type="password" 
             name="password"
             label="Пароль" 

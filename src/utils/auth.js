@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000/'; // Записать в константу адрес сервера
+import { BASE_URL } from '../utils/constants';
 
 export const createUser = (userdata) => {
 	return fetch (`${BASE_URL}signup`, { 
@@ -40,7 +40,7 @@ export const checkToken = (jwt) => {
 	.then(checkResponse)
 }
 
-const checkResponse = (res) =>{
+const checkResponse = (res) => {
 	return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
 }
 

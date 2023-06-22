@@ -4,6 +4,7 @@ import FormInput from "../FormInput/FormInput";
 import FormButton from "../FormButton/FormButton";
 import {useFormWithValidation} from '../Validator/Validator';
 import LoginErrorField from "../LoginErrorField/LoginErrorField";
+import { MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PATTERN } from '../../utils/constants';
 
 function FormLogin(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
@@ -27,7 +28,8 @@ function handleSubmit(e){
         <FormInput 
           type="email" 
           name="email"
-          label="E-mail" 
+          label="E-mail"
+          // pattern={REGEX_EMAIL_PATTERN}
           errorMsg={errors.email} 
           value={values.email||''} 
           handleChange={handleChange}/>
@@ -35,6 +37,8 @@ function handleSubmit(e){
           type="password" 
           name="password"
           label="Пароль"
+          minLength={MIN_PASS_LENGTH_VALUE}
+          maxLength={MAX_LENGTH_VALUE}
           errorMsg={errors.password} 
           value={values.password||''} 
           handleChange={handleChange}/>

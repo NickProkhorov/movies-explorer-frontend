@@ -93,12 +93,12 @@ function App() {
       })
       .catch((error) => {
         setIsLoginErrorField(true);
-        if(error === UNAUTHORIZED_ERROR_401_CHECK) { // Записать в константу
+        if(error === UNAUTHORIZED_ERROR_401_CHECK) {
           setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
         } else {
           setTooltipMessage(INTERNAL_SERVER_ERROR);
         }
-        console.log(`Ошибка при авторизации: ${error}`); // Записать в константу
+        console.log(`Ошибка при авторизации: ${error}`);
       })
   }
 
@@ -167,6 +167,7 @@ function App() {
   function getSavedMovies(){
     mainApi.getSavedMovies()
     .then((res) => {
+      console.log(`получили savedMovies из базы`);
       const savedMovies = res;
       setSavedMovies(savedMovies);
       setIsFailMovApiConnect(false);
@@ -284,6 +285,7 @@ function App() {
               setMovies={setMovies}
               movies={movies}
               savedMovies={savedMovies}
+              getSavedMovies={getSavedMovies}
               isPreload={isPreload}
               isNthFound={isNthFound}
               isFailMovApiConnect={isFailMovApiConnect}

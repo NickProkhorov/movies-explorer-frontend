@@ -1,11 +1,17 @@
 import { useLocation} from 'react-router-dom';
-import { MOVIES_API_IMAGE_LINK } from '../../utils/constants';
-import { useEffect } from 'react';
+import { MOVIES_API_IMAGE_LINK, ONE_HOUR_VALUE } from '../../utils/constants';
+import { useEffect, useState } from 'react';
 
 function MoviesCard(props){
 
-  const isSavedMarker = props.savedMovies.some(i => i.movieId === props.movie.id );
-  const savedMovie = props.savedMovies.filter((i) => i.movieId === props.movie.id);
+  const [ isSavedMarker, setIsSavedMarker ] = useState(false);
+  const [ savedMovie, setSavedMovie ] = useState({}); 
+  
+  useEffect(() => {
+    setIsSavedMarker(props.savedMovies.some(i => i.movieId === props.movie.id ));
+    setSavedMovie(props.savedMovies.find((i) => i.movieId === props.movie.id));
+  }, [props.savedMovies])
+
   const location = useLocation().pathname;
   const isMovies = location === '/movies';
   const saveButtonClassName = isMovies ? (`moviescard__save-button ${isSavedMarker ? '' : 'moviescard__save-button_active' }`) : ('moviescard__save-button');
@@ -18,6 +24,7 @@ function MoviesCard(props){
 
   function handleDelete() {
     const movie = isMovies ? savedMovie : props.movie;
+    console.log(JSON.stringify(movie));
     props.handleDeleteMovie(movie);
   }
    
@@ -32,7 +39,7 @@ function MoviesCard(props){
       <div className="moviescard__info">
         <h4 className="moviescard__name">{props.movie.nameRU}</h4>
         <span className="moviescard__duration">
-          {props.movie.duration > 60 ? `${Math.floor(props.movie.duration/60)}ч ${props.movie.duration%60}м`:`${props.movie.duration%60}м`}
+          {props.movie.duration > ONE_HOUR_VALUE ? `${Math.floor(props.movie.duration/ONE_HOUR_VALUE)}ч ${props.movie.duration%ONE_HOUR_VALUE}м`:`${props.movie.duration%ONE_HOUR_VALUE}м`}
         </span>
       </div>
     </li>
