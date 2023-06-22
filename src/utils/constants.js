@@ -1,7 +1,7 @@
 
 const HELLO_MSG = "Привет, ";
 
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'https://api.mexp.nomoredomains.monster/';
 
 const PROFILE_UPDATED_SUCESSFULLY = "Ваш профайл успешно обновлен!";
 

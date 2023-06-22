@@ -1,4 +1,4 @@
-import { MOVIES_API_IMAGE_LINK } from '../utils/constants';
+import { MOVIES_API_IMAGE_LINK, BASE_URL } from '../utils/constants';
 
 class API {
 	constructor({baseUrl, headers}){
@@ -76,7 +76,7 @@ class API {
 }
 
 const apiConfig = {
-    baseUrl:'http://localhost:3000/', // https://api.mexp.nomoredomains.monster/  // Записать в константу адрес сервера
+    baseUrl: BASE_URL,
     headers:{
     	"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
       "Content-Type": 'application/json'
