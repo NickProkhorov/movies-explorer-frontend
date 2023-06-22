@@ -18,9 +18,8 @@ const CONFLICT_ERROR_409_CHECK = "Ошибка: 409 Conflict";
 const MIN_LENGTH_VALUE = 2;
 const MIN_PASS_LENGTH_VALUE = 4;
 const MAX_LENGTH_VALUE = 30;
-const REGEX_NAME_PATTERN = '/^[а-яА-ЯёЁa-zA-Z0-9-\s]+$/'; //pattern={'^[а-яА-ЯёЁa-zA-Z0-9]+$'}  '/^[a-zA-Zа-яёА-ЯЁ -]+$/'
-const REGEX_EMAIL_PATTERN = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-///^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+const REGEX_NAME_PATTERN = '^[а-яА-ЯёЁa-zA-Z0-9-]+$';
+const REGEX_EMAIL_PATTERN = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
 const START_SHOW_MOVIES_0 = 0;
 const START_SHOW_MOVIES_12 = 12;
 const START_SHOW_MOVIES_8 = 8;
@@ -30,7 +29,6 @@ const ADD_SHOW_MOVIES_0 = 0;
 const ADD_SHOW_MOVIES_2 = 2;
 const ADD_SHOW_MOVIES_3 = 3;
 const ADD_SHOW_MOVIES_7 = 7;
-
 const SCREENWIDTH_1280 = 1280;
 const SCREENWIDTH_889 = 889;
 const SCREENWIDTH_769 = 769;

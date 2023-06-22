@@ -4,7 +4,7 @@ import FormInput from "../FormInput/FormInput";
 import FormButton from "../FormButton/FormButton";
 import {useFormWithValidation} from '../Validator/Validator';
 import LoginErrorField from "../LoginErrorField/LoginErrorField";
-import { MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PATTERN } from '../../utils/constants';
+import { MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_EMAIL_PATTERN } from '../../utils/constants';
 
 function FormLogin(props){
   const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
@@ -17,9 +17,9 @@ useEffect(() => {
 }, [setValues]);
 
 function handleSubmit(e){
-    e.preventDefault();
-    props.handleLogin({ email: values.email, password: values.password});
-    resetForm();
+  e.preventDefault();
+  props.handleLogin({ email: values.email, password: values.password});
+  resetForm();
 }
     
   return (
@@ -29,7 +29,7 @@ function handleSubmit(e){
           type="email" 
           name="email"
           label="E-mail"
-          // pattern="/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i"
+          pattern={REGEX_EMAIL_PATTERN}
           errorMsg={errors.email} 
           value={values.email||''} 
           handleChange={handleChange}/>

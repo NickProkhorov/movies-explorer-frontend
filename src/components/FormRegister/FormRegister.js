@@ -32,7 +32,7 @@ function FormRegister(props){
             label="Имя" 
             minLength={MIN_LENGTH_VALUE} 
             maxLength={MAX_LENGTH_VALUE}
-            // pattern={REGEX_NAME_PATTERN}
+            pattern={REGEX_NAME_PATTERN}
             errorMsg={errors.name} 
             value={values.name||''} 
             handleChange={handleChange}/>
@@ -40,7 +40,7 @@ function FormRegister(props){
             type="email" 
             name="email"
             label="E-mail"
-            // pattern={REGEX_EMAIL_PATTERN}
+            pattern={REGEX_EMAIL_PATTERN}
             errorMsg={errors.email} 
             value={values.email||''} 
             handleChange={handleChange}/>
