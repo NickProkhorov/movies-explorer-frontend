@@ -2,6 +2,7 @@
 const HELLO_MSG = "Привет, ";
 
 const BASE_URL = 'https://api.mexp.nomoredomains.monster/';
+const BEST_FILMS_API = 'https://api.nomoreparties.co/beatfilm-movies';
 
 const PROFILE_UPDATED_SUCESSFULLY = "Ваш профайл успешно обновлен!";
 
@@ -42,7 +43,7 @@ const ONE_HOUR_VALUE = 60;
 const MOVIES_API_IMAGE_LINK = "https://api.nomoreparties.co";
 
 export {
-	BASE_URL,  
+	BASE_URL, BEST_FILMS_API, 
 	MOVIES_API_IMAGE_LINK, 
 	NTHG_FOUND_MSG, 
 	GET_BF_ERROR, 

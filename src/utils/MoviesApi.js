@@ -1,3 +1,4 @@
+import { BEST_FILMS_API } from '../utils/constants';
 
 class API {
 	constructor({baseUrl, headers}){
@@ -18,7 +19,7 @@ class API {
 }
 
 const apiConfig = {
-	baseUrl:'https://api.nomoreparties.co/beatfilm-movies', // Записать в константу адрес сервера
+	baseUrl: BEST_FILMS_API,
 	headers:{
 		"Content-Type": 'application/json'
 	}   
