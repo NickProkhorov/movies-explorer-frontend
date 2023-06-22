@@ -65,6 +65,10 @@ function App() {
     }
   }, [loggedIn]);
 
+  useEffect(()=>{
+
+  })
+
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if(jwt){
@@ -131,7 +135,6 @@ function App() {
     return mainApi.setUserInfo(userData)
     .then((res)=>{ 
       setCurrentUser(res);
-      console.log(`currentUser: ${JSON.stringify(currentUser)}`);
       navigate("/profile");
       setIsEditProfileErrorField(true);
       setTooltipMessage(PROFILE_UPDATED_SUCESSFULLY);
@@ -329,6 +332,7 @@ function App() {
               tooltipMessage={tooltipMessage}
               isEditProfileErrorField={isEditProfileErrorField}
               setIsEditProfileErrorField={setIsEditProfileErrorField}
+              setCurrentUser={setCurrentUser}
             />
             }
           />

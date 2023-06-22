@@ -16,7 +16,10 @@ class API {
 	setUserInfo(data){
 		return fetch(`${this._url}users/me`, { 
 			method: 'PATCH',
-			headers: this._headers,
+			headers:{
+				"Authorization": `Bearer ${localStorage.getItem('jwt')}`,
+				"Content-Type": 'application/json'
+			},
 			body: JSON.stringify({
 				name: data.name,
 				email: data.email

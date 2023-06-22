@@ -11,12 +11,11 @@ import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PAT
 
 function EditProfile(props){
   const currentUser = useContext(CurrentUserContext);
-  props.setIsEditProfileErrorField(false);
   const { values, handleChange, errors, isValid, setValues, setIsValid} = useFormWithValidation();
   
   useEffect(() => {
     setValues(currentUser);
-  }, [currentUser]);
+  }, [setValues]);
 
   useEffect(() => {
     if(currentUser.name === values.name && currentUser.email === values.email){
@@ -39,7 +38,7 @@ function EditProfile(props){
           <FormInput 
             type="text" 
             name="name" 
-            label="Имя" 
+            label="Имя"
             minLength={MIN_LENGTH_VALUE} 
             maxLength={MAX_LENGTH_VALUE}
             pattern={REGEX_NAME_PATTERN}
