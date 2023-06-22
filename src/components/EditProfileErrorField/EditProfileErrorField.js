@@ -1,7 +1,5 @@
 function EditProfileErrorField({isOpen, message}) {
 
-	console.log(`isOpen ${isOpen}`);
-
 	return(
 		<section className={`editProfileErrorField  ${isOpen ? 'editProfileErrorField_opened':''}`}>
 			<div className="editProfileErrorField__container">

@@ -1,3 +1,5 @@
+import { EMAIL_VALIDATION_ERROR_MSG } from '../../utils/constants';
+
 function FormInput(props){
 	  
   return (

@@ -24,7 +24,6 @@ function MoviesCard(props){
 
   function handleDelete() {
     const movie = isMovies ? savedMovie : props.movie;
-    console.log(JSON.stringify(movie));
     props.handleDeleteMovie(movie);
   }
    

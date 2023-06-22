@@ -11,14 +11,21 @@ import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, REGEX_NAME_PATTERN } from '../../ut
 
 function EditProfile(props){
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
-  
-  console.log(JSON.stringify(props));
+  props.setIsEditProfileErrorField(false);
+  const { values, handleChange, errors, isValid, setValues , setIsValid} = useFormWithValidation();
   
   useEffect(() => {
     setValues(currentUser);
   }, [currentUser]);
 
+  useEffect(() => {
+    if(currentUser.name === values.name && currentUser.email === values.email){
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  });
+  
   function handleSubmit(e) {
     e.preventDefault();
     props.handleUpdateUser({name: values.name, email: values.email});
@@ -35,7 +42,7 @@ function EditProfile(props){
               label="Имя" 
               minLength={MIN_LENGTH_VALUE} 
               maxLength={MAX_LENGTH_VALUE}
-              pattern={REGEX_NAME_PATTERN}
+              // pattern={REGEX_NAME_PATTERN}
               errorMsg={errors.name} 
               value={values.name||''}
               handleChange={handleChange}

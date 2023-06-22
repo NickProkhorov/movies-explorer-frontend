@@ -131,6 +131,7 @@ function App() {
     return mainApi.setUserInfo(userData)
     .then((res)=>{ 
       setCurrentUser(res);
+      console.log(`currentUser: ${JSON.stringify(currentUser)}`);
       navigate("/profile");
       setIsEditProfileErrorField(true);
       setTooltipMessage(PROFILE_UPDATED_SUCESSFULLY);
@@ -167,7 +168,6 @@ function App() {
   function getSavedMovies(){
     mainApi.getSavedMovies()
     .then((res) => {
-      console.log(`получили savedMovies из базы`);
       const savedMovies = res;
       setSavedMovies(savedMovies);
       setIsFailMovApiConnect(false);
@@ -328,6 +328,7 @@ function App() {
               handleUpdateUser={handleUpdateUser}
               tooltipMessage={tooltipMessage}
               isEditProfileErrorField={isEditProfileErrorField}
+              setIsEditProfileErrorField={setIsEditProfileErrorField}
             />
             }
           />

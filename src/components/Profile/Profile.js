@@ -7,7 +7,6 @@ import { HELLO_MSG } from '../../utils/constants';
 
 function Profile(props){
   const currentUser = useContext(CurrentUserContext);
-  console.log(`Profile userdata ${JSON.stringify(currentUser)}`);
     
   return (
     <section className="profile">

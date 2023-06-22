@@ -10,6 +10,7 @@ const EMAIL_OR_PASS_NOTVALID = "Неправильные почта или па�
 const INTERNAL_SERVER_ERROR = "Проблемы на сервере. Попробуйте еще раз немного попозже";
 const NTHG_FOUND_MSG = "Ничего не найдено";
 const GET_BF_ERROR = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+const EMAIL_VALIDATION_ERROR_MSG = "Email должен обязательно содержать: @ и домен: .ru, .com или любой другой";
 
 const UNAUTHORIZED_ERROR_401_CHECK = "Ошибка: 401 Unauthorized";
 const CONFLICT_ERROR_409_CHECK = "Ошибка: 409 Conflict";
@@ -17,9 +18,9 @@ const CONFLICT_ERROR_409_CHECK = "Ошибка: 409 Conflict";
 const MIN_LENGTH_VALUE = 2;
 const MIN_PASS_LENGTH_VALUE = 4;
 const MAX_LENGTH_VALUE = 30;
-const REGEX_NAME_PATTERN = '/^[a-zA-Zа-яёА-ЯЁ -]+$/';
-const REGEX_EMAIL_PATTERN = '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
-
+const REGEX_NAME_PATTERN = '/^[а-яА-ЯёЁa-zA-Z0-9-\s]+$/'; //pattern={'^[а-яА-ЯёЁa-zA-Z0-9]+$'}  '/^[a-zA-Zа-яёА-ЯЁ -]+$/'
+const REGEX_EMAIL_PATTERN = '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+///^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
 const START_SHOW_MOVIES_0 = 0;
 const START_SHOW_MOVIES_12 = 12;
 const START_SHOW_MOVIES_8 = 8;
@@ -51,7 +52,7 @@ export {
 	INTERNAL_SERVER_ERROR, 
 	EMAIL_OR_PASS_NOTVALID, 
 	PROFILE_UPDATED_SUCESSFULLY,
-	HELLO_MSG,
+	HELLO_MSG, EMAIL_VALIDATION_ERROR_MSG,
 	START_SHOW_MOVIES_0, START_SHOW_MOVIES_12, START_SHOW_MOVIES_8, START_SHOW_MOVIES_7, START_SHOW_MOVIES_5,
 	ADD_SHOW_MOVIES_0, ADD_SHOW_MOVIES_2, ADD_SHOW_MOVIES_3, ADD_SHOW_MOVIES_7, SHORT_DURATION_VALUE, ONE_HOUR_VALUE,
 	SCREENWIDTH_1280, SCREENWIDTH_889, SCREENWIDTH_769, SCREENWIDTH_768, SCREENWIDTH_493, SCREENWIDTH_492,

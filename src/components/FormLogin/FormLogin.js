@@ -29,7 +29,7 @@ function handleSubmit(e){
           type="email" 
           name="email"
           label="E-mail"
-          // pattern={REGEX_EMAIL_PATTERN}
+          // pattern="/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i"
           errorMsg={errors.email} 
           value={values.email||''} 
           handleChange={handleChange}/>
