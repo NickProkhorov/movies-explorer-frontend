@@ -45,6 +45,7 @@ function App() {
   const [isShortDurationSM, setIsShortDurationSM] = useState(false);
   const [keyWord, setKeyWord] = useState('');
   const [isNthFound, setIsNthFound] = useState(false);
+  const [isNthFoundSM, setIsNthFoundSM] = useState(false);
   const [isFailMovApiConnect, setIsFailMovApiConnect] = useState(false);
 
   const [isActiveFormInput, setIsActiveFormInput] = useState(true);
@@ -68,10 +69,6 @@ function App() {
       })
     }
   }, [loggedIn]);
-
-  useEffect(()=>{
-
-  })
 
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -99,7 +96,9 @@ function App() {
         }
       })
       .then(()=>{
-        tokenCheck();  
+        tokenCheck();
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);  
       })
       .catch((error) => {
         setIsActiveFormInput(true);
@@ -129,6 +128,8 @@ function App() {
       })
       .then(()=> {
         tokenCheck();
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
       })
       .catch((error)=>{
         setIsActiveFormInput(true);
@@ -196,7 +197,6 @@ function App() {
   function filterMovies(movies, keyWord){
     setKeyWord(keyWord);
     foundMovies = searchMovies(movies, keyWord);
-    foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
     return foundMovies;
   }
 
@@ -204,12 +204,14 @@ function App() {
     localStorage.setItem('keyWord', keyWord);
     localStorage.setItem('shortDuration', isShortDuration); 
     foundMovies = filterMovies(moviesData, keyWord);
+    foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
     localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     setMovies(foundMovies);
   }
 
   function handleSearchSavedMovies(keyWord){
     foundMovies = filterMovies(savedMovies, keyWord);
+    foundMovies.length === 0 ? setIsNthFoundSM(true) : setIsNthFoundSM(false);
     setSavedMovies(foundMovies);
   }
 
@@ -243,11 +245,13 @@ function App() {
 
   function signOut(){
     localStorage.clear();
+    localStorage.removeItem('shortDuration');
 
     setCurrentUser({});
     setMovies([]);
     setSavedMovies([]);
     setLoggedIn(false);
+    setIsShortDuration(false);
     navigate('/');
   }
 
@@ -326,6 +330,8 @@ function App() {
               isShortDurationSM={isShortDurationSM}
               handleDeleteMovie={handleDeleteMovie}
               getSavedMovies={getSavedMovies}
+              isNthFoundSM={isNthFoundSM}
+              setIsNthFoundSM={setIsNthFoundSM}
             />
           }/>
           <Route 

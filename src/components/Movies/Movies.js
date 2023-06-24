@@ -2,10 +2,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoreMovies from '../MoreMovies/MoreMovies';
 import Preloader from '../Preloader/Preloader';
-import { NTHG_FOUND_MSG, GET_BF_ERROR } from '../../utils/constants';
+import { NTHG_FOUND_MSG, GET_BF_ERROR, START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0 } from '../../utils/constants';
 import { useEffect, useState } from 'react';
-
-import { START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0 } from '../../utils/constants';
 
 function Movies(props){
   const [renderSet, setRenderSet] = useState({startShow: START_SHOW_MOVIES_0, addShow: ADD_SHOW_MOVIES_0});

@@ -2,7 +2,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 
-import { START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0 } from '../../utils/constants';
+import { START_SHOW_MOVIES_0, ADD_SHOW_MOVIES_0, NTHG_FOUND_MSG } from '../../utils/constants';
 
 function SavedMovies(props){
 
@@ -11,6 +11,7 @@ function SavedMovies(props){
   useEffect(()=>{
     props.getSavedMovies();
     props.handleSetShortDurationSM(false);
+    props.setIsNthFoundSM(false);
   }, []);
  
   function handleSetRender(setting){
@@ -18,22 +19,23 @@ function SavedMovies(props){
   }
     
   return (
-        <section className="savedmovies">
-          <SearchForm
-            handleSetShortDurationSM={props.handleSetShortDurationSM}
-            isShortDurationSM={props.isShortDurationSM}
-            handleSearchSavedMovies={props.handleSearchSavedMovies}
-          />
-          <div className="savedmovies__line"></div>
-          <MoviesCardList 
-            movies={props.movies} 
-            renderSet={renderSet}
-            handleSetRender={handleSetRender}
-            savedMovies={props.savedMovies} 
-            handleDeleteMovie={props.handleDeleteMovie}
-            isShortDuration={props.isShortDurationSM}
-          />
-        </section>
+      <section className="savedmovies">
+        <SearchForm
+          handleSetShortDurationSM={props.handleSetShortDurationSM}
+          isShortDurationSM={props.isShortDurationSM}
+          handleSearchSavedMovies={props.handleSearchSavedMovies}
+        />
+        <div className="savedmovies__line"></div>
+        <MoviesCardList 
+          movies={props.movies} 
+          renderSet={renderSet}
+          handleSetRender={handleSetRender}
+          savedMovies={props.savedMovies} 
+          handleDeleteMovie={props.handleDeleteMovie}
+          isShortDuration={props.isShortDurationSM}
+        />
+        <p className="movies__errormsg">{props.isNthFoundSM ? NTHG_FOUND_MSG : ''}</p>
+      </section>
     )
   }
   

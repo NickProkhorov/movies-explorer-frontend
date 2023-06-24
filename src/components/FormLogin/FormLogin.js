@@ -8,6 +8,7 @@ import { MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_EMAIL_PATTERN } from '..
 
 function FormLogin(props){
   const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
+
 useEffect(() => {
   setValues({
     email:"",
