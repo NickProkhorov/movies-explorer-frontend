@@ -1,5 +1,4 @@
 function FormButton(props){
-  console.log(`props.isActiveFormBtn ${props.isActiveFormBtn}`);
   const formbuttonClassName = ( !props.btnIsValid || !props.isActiveFormBtn) ? ('formbutton formbutton_disabled'):('formbutton');
 
   return (
