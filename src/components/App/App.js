@@ -252,6 +252,8 @@ function App() {
     setSavedMovies([]);
     setLoggedIn(false);
     setIsShortDuration(false);
+    setIsLoginErrorField(false);
+    setIsRegisterErrorField(false);
     navigate('/');
   }
 
