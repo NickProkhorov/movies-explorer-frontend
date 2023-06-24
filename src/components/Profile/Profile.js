@@ -22,7 +22,7 @@ function Profile(props){
 			<ProfileUpdatedMsg message={props.tooltipMessage} isOpen={props.isEditProfileErrorField}/>
 			<div className="profile__handlers">
 				<Link to='/profile-edit' className="profile__edit-profile">{props.submitValue}</Link>
-				<Link to='/signin' className="profile__exit-btn" onClick={props.signOut}>{props.exitBtn}</Link>
+				<Link to='/' className="profile__exit-btn" onClick={props.signOut}>{props.exitBtn}</Link>
 			</div>    
     </section>
   )

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import {useFormWithValidation} from '../Validator/Validator';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import FilterCheckboxSM from "../FilterCheckboxSM/FilterCheckboxSM";
 
 function SearchForm(props){
   const { values, handleChange, errors, isValid } = useFormWithValidation();
@@ -45,7 +46,12 @@ function SearchForm(props){
           <button className="searchform__button" type="submit" disabled={!isValid} ></button>
         </fieldset>
       </form>
-      <FilterCheckbox handleSetShortDuration={props.handleSetShortDuration} isShortDuration={props.isShortDuration}/>
+      {isMovies ? 
+        <FilterCheckbox handleSetShortDuration={props.handleSetShortDuration} isShortDuration={props.isShortDuration}/>
+        :
+        <FilterCheckboxSM handleSetShortDurationSM={props.handleSetShortDurationSM} isShortDurationSM={props.isShortDurationSM}/>
+      }
+      
     </section>
   )
 }

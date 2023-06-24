@@ -42,11 +42,7 @@ function handleSubmit(e){
           errorMsg={errors.password} 
           value={values.password||''} 
           handleChange={handleChange}/>
-        <LoginErrorField 
-          isOpen={props.isLoginErrorField} 
-          message={props.tooltipMessage}
-          tooltipMessage={props.tooltipMessage}
-        />
+        <LoginErrorField isOpen={props.isLoginErrorField} message={props.tooltipMessage}tooltipMessage={props.tooltipMessage}/>
       </fieldset>
       <fieldset className="formlogin__handlers">
         <FormButton submitValue={props.submitValue} btnIsValid={isValid}/>

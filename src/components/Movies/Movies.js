@@ -12,7 +12,6 @@ function Movies(props){
 
   useEffect(() => {
     props.getSavedMovies();
-    
     if(localStorage.getItem('shortDuration') === 'true'){
       props.handleSetShortDuration(true);
     } else {

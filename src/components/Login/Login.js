@@ -16,6 +16,7 @@ function Login(props){
             handleLogin={props.handleLogin}
             isInfoTooltipOpen={props.isInfoTooltipOpen}
             tooltipMessage={props.tooltipMessage}
+            isLoginErrorField={props.isLoginErrorField}
           />
         }
       </div>

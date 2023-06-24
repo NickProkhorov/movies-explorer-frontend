@@ -41,7 +41,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   
   const [isPreload, setIsPreload] = useState(false);
-  const [isShortDuration, setIsShortDuration] = useState(false);
+  const [isShortDuration, setIsShortDuration] = useState(JSON.parse(localStorage.getItem('shortDuration')) || false);
+  const [isShortDurationSM, setIsShortDurationSM] = useState(false);
   const [keyWord, setKeyWord] = useState('');
   const [isNthFound, setIsNthFound] = useState(false);
   const [isFailMovApiConnect, setIsFailMovApiConnect] = useState(false);
@@ -225,6 +226,10 @@ function App() {
     setIsShortDuration(isShortDuration); 
   }
 
+  function handleSetShortDurationSM(isShortDuration){
+    setIsShortDurationSM(isShortDuration); 
+  }
+
   function signOut(){
     localStorage.clear();
 
@@ -232,7 +237,7 @@ function App() {
     setMovies([]);
     setSavedMovies([]);
     setLoggedIn(false);
-    navigate('/signin'); 
+    navigate('/');
   }
 
   function handleOpenBurger(){
@@ -301,9 +306,9 @@ function App() {
               movies={savedMovies}
               savedMovies={savedMovies}
               loggedIn={loggedIn}
-              handleSetShortDuration={handleSetShortDuration}
               handleSearchSavedMovies={handleSearchSavedMovies}
-              isShortDuration={isShortDuration}
+              handleSetShortDurationSM={handleSetShortDurationSM}
+              isShortDurationSM={isShortDurationSM}
               handleDeleteMovie={handleDeleteMovie}
               getSavedMovies={getSavedMovies}
             />

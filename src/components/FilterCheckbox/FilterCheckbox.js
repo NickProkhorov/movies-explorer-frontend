@@ -1,8 +1,14 @@
+import { useEffect } from "react";
+
 function FilterCheckbox(props){
+
+	useEffect(() => {
+		localStorage.setItem('shortDuration', props.isShortDuration);
+  }, [props.isShortDuration]);
     
 	function handleCheck() {
 		props.handleSetShortDuration(!props.isShortDuration);
-	  }
+	}
 	
 	return (
 		<fieldset className="filtercheckbox__checkbox-container">

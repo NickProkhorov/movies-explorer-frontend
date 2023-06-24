@@ -10,7 +10,7 @@ function SavedMovies(props){
 
   useEffect(()=>{
     props.getSavedMovies();
-    props.handleSetShortDuration(false);
+    props.handleSetShortDurationSM(false);
   }, []);
  
   function handleSetRender(setting){
@@ -20,8 +20,8 @@ function SavedMovies(props){
   return (
         <section className="savedmovies">
           <SearchForm
-            handleSetShortDuration={props.handleSetShortDuration} 
-            isShortDuration={props.isShortDuration}
+            handleSetShortDurationSM={props.handleSetShortDurationSM}
+            isShortDurationSM={props.isShortDurationSM}
             handleSearchSavedMovies={props.handleSearchSavedMovies}
           />
           <div className="savedmovies__line"></div>
@@ -31,7 +31,7 @@ function SavedMovies(props){
             handleSetRender={handleSetRender}
             savedMovies={props.savedMovies} 
             handleDeleteMovie={props.handleDeleteMovie}
-            isShortDuration={props.isShortDuration}
+            isShortDuration={props.isShortDurationSM}
           />
         </section>
     )
