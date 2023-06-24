@@ -7,8 +7,7 @@ import LoginErrorField from "../LoginErrorField/LoginErrorField";
 import { MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_EMAIL_PATTERN } from '../../utils/constants';
 
 function FormLogin(props){
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
-
+  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
 useEffect(() => {
   setValues({
     email:"",
@@ -19,7 +18,6 @@ useEffect(() => {
 function handleSubmit(e){
   e.preventDefault();
   props.handleLogin({ email: values.email, password: values.password});
-  resetForm();
 }
     
   return (
@@ -32,7 +30,9 @@ function handleSubmit(e){
           pattern={REGEX_EMAIL_PATTERN}
           errorMsg={errors.email} 
           value={values.email||''} 
-          handleChange={handleChange}/>
+          handleChange={handleChange}
+          isActiveFormInput={props.isActiveFormInput}
+        />
         <FormInput 
           type="password" 
           name="password"
@@ -41,11 +41,13 @@ function handleSubmit(e){
           maxLength={MAX_LENGTH_VALUE}
           errorMsg={errors.password} 
           value={values.password||''} 
-          handleChange={handleChange}/>
-        <LoginErrorField isOpen={props.isLoginErrorField} message={props.tooltipMessage}tooltipMessage={props.tooltipMessage}/>
+          handleChange={handleChange}
+          isActiveFormInput={props.isActiveFormInput}
+        />
+        <LoginErrorField isOpen={props.isLoginErrorField} message={props.tooltipMessage} tooltipMessage={props.tooltipMessage}/>
       </fieldset>
       <fieldset className="formlogin__handlers">
-        <FormButton submitValue={props.submitValue} btnIsValid={isValid}/>
+        <FormButton submitValue={props.submitValue} btnIsValid={isValid} isActiveFormBtn={props.isActiveFormBtn}/>
       </fieldset>    
     </form>                
   )

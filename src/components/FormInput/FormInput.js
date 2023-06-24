@@ -1,5 +1,3 @@
-import { EMAIL_VALIDATION_ERROR_MSG } from '../../utils/constants';
-
 function FormInput(props){
 	  
   return (
@@ -15,6 +13,7 @@ function FormInput(props){
 					maxLength={props.maxLength}
 					pattern={props.pattern}
 					onChange={props.handleChange}
+					disabled={!props.isActiveFormInput}
 					required
 				/>
 			<span className={`forminput__error forminput__error-${props.name}`}>{props.errorMsg}</span>

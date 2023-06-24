@@ -47,6 +47,9 @@ function App() {
   const [isNthFound, setIsNthFound] = useState(false);
   const [isFailMovApiConnect, setIsFailMovApiConnect] = useState(false);
 
+  const [isActiveFormInput, setIsActiveFormInput] = useState(true);
+  const [isActiveFormBtn, setIsActiveFormBtn] = useState(true);
+
   let moviesData = new Array();
   let foundMovies = new Array();
   
@@ -86,6 +89,8 @@ function App() {
   }
 
   function handleLogin(userData) { 
+    setIsActiveFormInput(false);
+    setIsActiveFormBtn(false);
     return auth.login(userData)
       .then((res) => {
         if (res.token) {
@@ -97,6 +102,8 @@ function App() {
         tokenCheck();  
       })
       .catch((error) => {
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
         setIsLoginErrorField(true);
         if(error === UNAUTHORIZED_ERROR_401_CHECK) {
           setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
@@ -108,6 +115,8 @@ function App() {
   }
 
   function handleRegister(userData){
+    setIsActiveFormInput(false);
+    setIsActiveFormBtn(false);
     return auth.createUser(userData)
       .then(()=> {
         return auth.login(userData);
@@ -122,6 +131,8 @@ function App() {
         tokenCheck();
       })
       .catch((error)=>{
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
         setIsRegisterErrorField(true);
         if(error === CONFLICT_ERROR_409_CHECK) {
           setTooltipMessage(USER_ALREADY_EXIST);
@@ -263,6 +274,8 @@ function App() {
               handleLogin={handleLogin}
               tooltipMessage={tooltipMessage}
               isLoginErrorField={isLoginErrorField}
+              isActiveFormInput={isActiveFormInput}
+              isActiveFormBtn={isActiveFormBtn}
             />
             }
           />
@@ -277,6 +290,8 @@ function App() {
               handleRegister={handleRegister}
               tooltipMessage={tooltipMessage}
               isRegisterErrorField={isRegisterErrorField}
+              isActiveFormInput={isActiveFormInput}
+              isActiveFormBtn={isActiveFormBtn}
             />
             }
           />

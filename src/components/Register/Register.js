@@ -16,6 +16,8 @@ function Register(props){
             handleRegister={props.handleRegister} 
             isRegisterErrorField={props.isRegisterErrorField} 
             tooltipMessage={props.tooltipMessage}
+            isActiveFormInput={props.isActiveFormInput}
+            isActiveFormBtn={props.isActiveFormBtn}
           />
         }
       </div>

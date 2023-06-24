@@ -7,8 +7,8 @@ import {useFormWithValidation} from '../Validator/Validator';
 import { MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PATTERN } from '../../utils/constants';
 
 function FormRegister(props){
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
-    
+  const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
+
     useEffect(() => {
       setValues({
         name:"",
@@ -20,7 +20,6 @@ function FormRegister(props){
     function handleSubmit(e){
         e.preventDefault();
         props.handleRegister({ name: values.name, email: values.email, password: values.password});
-        resetForm();
     }
     
     return (
@@ -35,7 +34,10 @@ function FormRegister(props){
             pattern={REGEX_NAME_PATTERN}
             errorMsg={errors.name} 
             value={values.name||''} 
-            handleChange={handleChange}/>
+            handleChange={handleChange}
+            isActiveFormInput={props.isActiveFormInput}
+            isActiveFormBtn={props.isActiveFormBtn}
+          />
           <FormInput 
             type="email" 
             name="email"
@@ -43,7 +45,10 @@ function FormRegister(props){
             pattern={REGEX_EMAIL_PATTERN}
             errorMsg={errors.email} 
             value={values.email||''} 
-            handleChange={handleChange}/>
+            handleChange={handleChange}
+            isActiveFormInput={props.isActiveFormInput}
+            isActiveFormBtn={props.isActiveFormBtn}
+          />
           <FormInput
             type="password" 
             name="password"
@@ -52,11 +57,14 @@ function FormRegister(props){
             maxLength={MAX_LENGTH_VALUE}
             errorMsg={errors.password} 
             value={values.password||''} 
-            handleChange={handleChange}/>
+            handleChange={handleChange}
+            isActiveFormInput={props.isActiveFormInput}
+            isActiveFormBtn={props.isActiveFormBtn}
+          />
           <RegisterErrorField isOpen={props.isRegisterErrorField} message={props.tooltipMessage}/>
         </fieldset>
         <fieldset className="formregister__handlers">
-          <FormButton submitValue={props.submitValue} btnIsValid={isValid} />
+          <FormButton submitValue={props.submitValue} btnIsValid={isValid} isActiveFormBtn={props.isActiveFormBtn}/>
         </fieldset>    
       </form>             
     )
