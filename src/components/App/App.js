@@ -39,6 +39,7 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [usersMovies, setUsersMovies] = useState([]);
   
   const [isPreload, setIsPreload] = useState(false);
   const [isShortDuration, setIsShortDuration] = useState(JSON.parse(localStorage.getItem('shortDuration')) || false);
@@ -69,6 +70,10 @@ function App() {
       })
     }
   }, [loggedIn]);
+
+  useEffect(() => {
+    setSavedMovies(usersMovies);
+  }, [usersMovies]);
 
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -181,11 +186,11 @@ function App() {
     })
   }
 
-  function getSavedMovies(){
+  function getSavedMovies(){ 
     mainApi.getSavedMovies()
     .then((res) => {
-      const savedMovies = res;
-      setSavedMovies(savedMovies);
+      setUsersMovies(res);
+      setSavedMovies(usersMovies);
       setIsFailMovApiConnect(false);
     })
     .catch((error)=>{
@@ -210,7 +215,7 @@ function App() {
   }
 
   function handleSearchSavedMovies(keyWord){
-    foundMovies = filterMovies(savedMovies, keyWord);
+    foundMovies = filterMovies(usersMovies, keyWord);
     foundMovies.length === 0 ? setIsNthFoundSM(true) : setIsNthFoundSM(false);
     setSavedMovies(foundMovies);
   }
@@ -321,11 +326,11 @@ function App() {
               isShortDuration={isShortDuration}
             />
           }/>
-          <Route path="/saved-movies" element ={
+          <Route path="/saved-movies" element ={ // смотрим тут
             <ProtectedRoute
               element={SavedMovies}
-              movies={savedMovies}
-              savedMovies={savedMovies}
+              movies={savedMovies} // результат сохранных фильмов из базы или найденых фильмов
+              savedMovies={savedMovies} // зачем передаю еще раз?
               loggedIn={loggedIn}
               handleSearchSavedMovies={handleSearchSavedMovies}
               handleSetShortDurationSM={handleSetShortDurationSM}
