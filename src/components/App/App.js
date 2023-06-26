@@ -1,4 +1,5 @@
 import '../../index.css';
+import * as auth from '../../utils/auth';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,28 +11,369 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import EditProfile from '../EditProfile/EditProfile';
-import BurgerMenu from '../BurgerMenu/BurgerMenu'; 
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/MainApi';
+import { moviesApi } from '../../utils/MoviesApi';
 
+import { searchMovies } from '../MoviesFinder/MoviesFinder';
+import { USER_ALREADY_EXIST, INTERNAL_SERVER_ERROR, EMAIL_OR_PASS_NOTVALID, PROFILE_UPDATED_SUCESSFULLY, 
+  UNAUTHORIZED_ERROR_401_CHECK, CONFLICT_ERROR_409_CHECK 
+} from '../../utils/constants';
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState( localStorage.getItem("loggedIn") || false );
+  const [currentUser, setCurrentUser] = useState({});
+
+  const [tooltipMessage, setTooltipMessage] = useState('');
+  const [isLoginErrorField, setIsLoginErrorField] = useState(false);
+  const [isRegisterErrorField, setIsRegisterErrorField] = useState(false);
+  const [isEditProfileErrorField, setIsEditProfileErrorField] = useState(false);
+
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [usersMovies, setUsersMovies] = useState([]);
+  
+  const [isPreload, setIsPreload] = useState(false);
+  const [isShortDuration, setIsShortDuration] = useState(JSON.parse(localStorage.getItem('shortDuration')) || false);
+  const [isShortDurationSM, setIsShortDurationSM] = useState(false);
+  const [keyWord, setKeyWord] = useState('');
+  const [isNthFound, setIsNthFound] = useState(false);
+  const [isNthFoundSM, setIsNthFoundSM] = useState(false);
+  const [isFailMovApiConnect, setIsFailMovApiConnect] = useState(false);
+
+  const [isActiveFormInput, setIsActiveFormInput] = useState(true);
+  const [isActiveFormBtn, setIsActiveFormBtn] = useState(true);
+
+  let moviesData = new Array();
+  let foundMovies = new Array();
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if(jwt){
+      auth.checkToken(jwt) 
+      .then((res)=>{ 
+        setCurrentUser(res);
+        setLoggedIn(true);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    setSavedMovies(usersMovies);
+  }, [usersMovies]);
+
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if(jwt){
+      auth.checkToken(jwt) 
+      .then((res)=>{ 
+        setCurrentUser(res);
+        setLoggedIn(true);
+        navigate("/movies");
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
+  }
+
+  function handleLogin(userData) { 
+    setIsActiveFormInput(false);
+    setIsActiveFormBtn(false);
+    return auth.login(userData)
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('loggedIn', true);  
+        }
+      })
+      .then(()=>{
+        tokenCheck();
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);  
+      })
+      .catch((error) => {
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
+        setIsLoginErrorField(true);
+        if(error === UNAUTHORIZED_ERROR_401_CHECK) {
+          setTooltipMessage(EMAIL_OR_PASS_NOTVALID);
+        } else {
+          setTooltipMessage(INTERNAL_SERVER_ERROR);
+        }
+        console.log(`Ошибка при авторизации: ${error}`);
+      })
+  }
+
+  function handleRegister(userData){
+    setIsActiveFormInput(false);
+    setIsActiveFormBtn(false);
+    return auth.createUser(userData)
+      .then(()=> {
+        return auth.login(userData);
+      })
+      .then((res)=> {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          localStorage.setItem('loggedIn', true); 
+        }
+      })
+      .then(()=> {
+        tokenCheck();
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
+      })
+      .catch((error)=>{
+        setIsActiveFormInput(true);
+        setIsActiveFormBtn(true);
+        setIsRegisterErrorField(true);
+        if(error === CONFLICT_ERROR_409_CHECK) {
+          setTooltipMessage(USER_ALREADY_EXIST);
+        } else {
+          setTooltipMessage(INTERNAL_SERVER_ERROR);
+        }
+        console.log(JSON.stringify(error));
+      })
+  }
+
+  function handleUpdateUser(userData){
+    return mainApi.setUserInfo(userData)
+    .then((res)=>{ 
+      setCurrentUser(res);
+      navigate("/profile");
+      setIsEditProfileErrorField(true);
+      setTooltipMessage(PROFILE_UPDATED_SUCESSFULLY);
+    })
+    .catch((error)=>{
+      setIsEditProfileErrorField(true);
+      if(error === CONFLICT_ERROR_409_CHECK) {
+        setTooltipMessage(USER_ALREADY_EXIST);
+      } else {
+        setTooltipMessage(INTERNAL_SERVER_ERROR);
+      }
+      console.log(error);
+    })
+  }
+
+  function handleGetMovies(keyWord){
+    setIsPreload(true);
+    setKeyWord(keyWord);
+    moviesApi.getAllMovies()
+    .then((res) => {
+      moviesData = res;
+      handleSearchMovies(keyWord);
+      setIsFailMovApiConnect(false);
+    })
+    .catch((error)=>{
+      console.log(error);
+      setIsFailMovApiConnect(true);
+    })
+    .finally(()=>{
+      setIsPreload(false);
+    })
+  }
+
+  function getSavedMovies(){ 
+    mainApi.getSavedMovies()
+    .then((res) => {
+      setUsersMovies(res);
+      setSavedMovies(usersMovies);
+      setIsFailMovApiConnect(false);
+    })
+    .catch((error)=>{
+      console.log(error);
+      setIsFailMovApiConnect(true);
+    })
+  }
+
+  function filterMovies(movies, keyWord){
+    setKeyWord(keyWord);
+    foundMovies = searchMovies(movies, keyWord);
+    return foundMovies;
+  }
+
+  function handleSearchMovies(keyWord){
+    localStorage.setItem('keyWord', keyWord);
+    localStorage.setItem('shortDuration', isShortDuration); 
+    foundMovies = filterMovies(moviesData, keyWord);
+    foundMovies.length === 0 ? setIsNthFound(true) : setIsNthFound(false);
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+    setMovies(foundMovies);
+  }
+
+  function handleSearchSavedMovies(keyWord){
+    foundMovies = filterMovies(usersMovies, keyWord);
+    foundMovies.length === 0 ? setIsNthFoundSM(true) : setIsNthFoundSM(false);
+    setSavedMovies(foundMovies);
+  }
+
+  function handleSaveMovie(movie){
+    return mainApi.createMovie(movie)
+    .then((res)=>{
+      setSavedMovies([res,...savedMovies]);    
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  function handleDeleteMovie(movie){
+    return mainApi.deleteMovie(movie._id)
+    .then(()=>{
+      setSavedMovies((savedMovies) => savedMovies.filter((i) => i._id !== movie._id ));  
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  function handleSetShortDuration(isShortDuration){
+    setIsShortDuration(isShortDuration); 
+  }
+
+  function handleSetShortDurationSM(isShortDuration){
+    setIsShortDurationSM(isShortDuration); 
+  }
+
+  function signOut(){
+    localStorage.clear();
+    localStorage.removeItem('shortDuration');
+
+    setCurrentUser({});
+    setMovies([]);
+    setSavedMovies([]);
+    setLoggedIn(false);
+    setIsShortDuration(false);
+    setIsLoginErrorField(false);
+    setIsRegisterErrorField(false);
+    navigate('/');
+  }
+
+  function handleOpenBurger(){
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  }
+  
+  function handleCloseBurger(){
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  }
   
   return (
     <div>
-      <Header />
-      <Routes>
-        <Route path="/signin" element ={<Login title="Рады видеть!" name="login" submitValue="Войти" question="Ещё не зарегистрированы?" link="Регистрация" />}/>
-        <Route path="/signup" element ={<Register title="Добро пожаловать!" name="register" labelName="Имя" submitValue="Зарегистрироваться" question="Уже зарегистрированы?" link="Войти"/>}/>
-        <Route path="/" element ={<Main />}/>
-        <Route path="/movies" element ={<Movies />}/>
-        <Route path="/saved-movies" element ={<SavedMovies />}/>
-        <Route path="/profile" element ={<Profile title="Привет, Николай!" submitValue="Редактировать" exitBtn="Выйти из аккаунта" username="Николай" useremail="nickky87@ya.ru"/>}/>
-        <Route path="/profile-edit" element ={<EditProfile heading="Измените данные профиля" labelName="Имя" labelEmail="Email" submitValue="Сохранить" link="Передумал"/>}/>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <BurgerMenu />
-      <Footer />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header loggedIn={loggedIn} handleOpenBurger={handleOpenBurger}/>
+        <Routes>
+          <Route path="/signin" element ={loggedIn ? <Navigate to="/"/> :
+            <Login 
+              title="Рады видеть!" 
+              name="login" 
+              submitValue="Войти" 
+              question="Ещё не зарегистрированы?" 
+              link="Регистрация" 
+              handleLogin={handleLogin}
+              tooltipMessage={tooltipMessage}
+              isLoginErrorField={isLoginErrorField}
+              isActiveFormInput={isActiveFormInput}
+              isActiveFormBtn={isActiveFormBtn}
+            />
+            }
+          />
+          <Route path="/signup" element ={ loggedIn ? <Navigate to="/"/> :
+            <Register 
+              title="Добро пожаловать!" 
+              name="register" 
+              labelName="Имя" 
+              submitValue="Зарегистрироваться" 
+              question="Уже зарегистрированы?" 
+              link="Войти" 
+              handleRegister={handleRegister}
+              tooltipMessage={tooltipMessage}
+              isRegisterErrorField={isRegisterErrorField}
+              isActiveFormInput={isActiveFormInput}
+              isActiveFormBtn={isActiveFormBtn}
+            />
+            }
+          />
+          <Route path="/" element ={<Main />}/>
+          <Route path="/movies" element={
+            <ProtectedRoute
+              element={Movies}
+              loggedIn={loggedIn}
+              handleGetMovies={handleGetMovies}
+              handleSearchMovies={handleSearchMovies}
+              handleSetShortDuration={handleSetShortDuration}
+              handleSaveMovie={handleSaveMovie}
+              handleDeleteMovie={handleDeleteMovie}
+              setMovies={setMovies}
+              movies={movies}
+              savedMovies={savedMovies}
+              getSavedMovies={getSavedMovies}
+              isPreload={isPreload}
+              isNthFound={isNthFound}
+              isFailMovApiConnect={isFailMovApiConnect}
+              isShortDuration={isShortDuration}
+            />
+          }/>
+          <Route path="/saved-movies" element ={ // смотрим тут
+            <ProtectedRoute
+              element={SavedMovies}
+              movies={savedMovies} // результат сохранных фильмов из базы или найденых фильмов
+              savedMovies={savedMovies} // зачем передаю еще раз?
+              loggedIn={loggedIn}
+              handleSearchSavedMovies={handleSearchSavedMovies}
+              handleSetShortDurationSM={handleSetShortDurationSM}
+              isShortDurationSM={isShortDurationSM}
+              handleDeleteMovie={handleDeleteMovie}
+              getSavedMovies={getSavedMovies}
+              isNthFoundSM={isNthFoundSM}
+              setIsNthFoundSM={setIsNthFoundSM}
+            />
+          }/>
+          <Route 
+            path="/profile" element ={
+              <ProtectedRoute
+                element={Profile}
+                loggedIn={loggedIn}
+                submitValue="Редактировать" 
+                exitBtn="Выйти из аккаунта" 
+                signOut={signOut}
+                tooltipMessage={tooltipMessage}
+                isEditProfileErrorField={isEditProfileErrorField}
+              />
+            }
+          />
+          <Route path="/profile-edit" element ={
+            <EditProfile 
+              heading="Измените данные профиля" 
+              labelName="Имя" 
+              labelEmail="Email" 
+              submitValue="Сохранить" 
+              link="Передумал"
+              handleUpdateUser={handleUpdateUser}
+              tooltipMessage={tooltipMessage}
+              isEditProfileErrorField={isEditProfileErrorField}
+              setIsEditProfileErrorField={setIsEditProfileErrorField}
+              setCurrentUser={setCurrentUser}
+            />
+            }
+          />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} handleCloseBurger={handleCloseBurger}/>
+        <Footer /> 
+        </CurrentUserContext.Provider>   
     </div>
   );
 }

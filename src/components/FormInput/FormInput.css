@@ -16,7 +16,7 @@
   padding: 0;
   padding-top: 5px;
   padding-bottom: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 5px;
   font-size: 14px;
   line-height: 17px;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -39,21 +39,15 @@
 }
 
 .forminput__error-name {
-  position: absolute;
-  left: 0;
-  top: 58px;
+  min-height: 24px;
 }
 
 .forminput__error-email {
-  position: absolute;
-  left: 0;
-  top: 133px;
+  min-height: 24px;
 }
 
 .forminput__error-password {
-  position: absolute;
-  left: 0;
-  top: 208px;
+  min-height: 24px;
 }
 
 @media screen and (max-width: 456px) {

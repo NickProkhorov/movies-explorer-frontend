@@ -1,9 +1,11 @@
+
 .formlogin__input-container {
   border: 0;
   padding: 0;
   margin: 0;
   min-height: 266px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .formlogin__handlers {

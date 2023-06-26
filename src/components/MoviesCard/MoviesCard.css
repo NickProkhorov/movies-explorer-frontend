@@ -56,8 +56,10 @@
   background-color: #EE3465;
   background-image: url(../../images/saved-marker.svg);
   background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;  
+  background-position: center; 
+  cursor: pointer;
+  box-sizing: border-box;
+  border-width: 0px 0px 0px; 
 }
 
 .moviescard__saved-marker_active {
@@ -78,6 +80,8 @@
   background-position: center;
   margin: 0;
   cursor: pointer;
+  box-sizing: border-box;
+  border-width: 0px 0px 0px;
 }
 .moviescard__delete-movie:hover {
   opacity: 80%;
@@ -98,6 +102,7 @@
 }
 
 .moviescard__name {
+  max-width: 250px;
   color: #fff;
   font-size: 13px;
   line-height: 16px;
@@ -141,5 +146,9 @@
 
   .moviescard__info {
     margin-top: 16px;
+  }
+
+  .moviescard__name {
+    max-width: 240px;
   }
 }

@@ -1,80 +1,61 @@
-const movies = [
-    {
-      id: 8888,
-      name: "Фильм 1",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGNpbmVtYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 1111,
-      name: "Название фильма 2",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1542204637-e67bc7d41e48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1vdmllc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    { 
-      id: 2222,  
-      name: "Название фильма",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 3333, 
-      name: "Фильм 1",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGNpbmVtYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 4444, 
-      name: "Название фильма 2",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1542204637-e67bc7d41e48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1vdmllc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      
-    },
-    {
-      id: 9999,
-      name: "Название фильма",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 5555,
-      name: "Фильм 1",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGNpbmVtYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 6666,
-      name: "Название фильма 2",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1542204637-e67bc7d41e48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1vdmllc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 7777,
-      name: "Название фильма",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    },
-];
 
-const savedmovies = [
-    {
-      id: 1111,
-      name: "Фильм 1",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGNpbmVtYXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 2222,
-      name: "Название фильма 2",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1542204637-e67bc7d41e48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1vdmllc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    },
-    {
-      id: 3333,
-      name: "Название фильма",
-      duration:  "1ч 17м",
-      link:  "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    },
-];
+const HELLO_MSG = "Привет, ";
 
-export {movies, savedmovies};
+const BASE_URL = 'https://api.mexp.nomoredomains.monster/';
+const BEST_FILMS_API = 'https://api.nomoreparties.co/beatfilm-movies';
+
+const PROFILE_UPDATED_SUCESSFULLY = "Ваш профайл успешно обновлен!";
+
+const USER_ALREADY_EXIST = "Пользователь с такими данными уже существует";
+const EMAIL_OR_PASS_NOTVALID = "Неправильные почта или пароль";
+const INTERNAL_SERVER_ERROR = "Проблемы на сервере. Попробуйте еще раз немного попозже";
+const NTHG_FOUND_MSG = "Ничего не найдено";
+const GET_BF_ERROR = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+const EMAIL_VALIDATION_ERROR_MSG = "Email должен обязательно содержать: @ и домен: .ru, .com или любой другой";
+
+const UNAUTHORIZED_ERROR_401_CHECK = "Ошибка: 401 Unauthorized";
+const CONFLICT_ERROR_409_CHECK = "Ошибка: 409 Conflict";
+
+const MIN_LENGTH_VALUE = 2;
+const MIN_PASS_LENGTH_VALUE = 4;
+const MAX_LENGTH_VALUE = 30;
+const REGEX_NAME_PATTERN = '^[а-яА-ЯёЁa-zA-Z0-9-]+$';
+const REGEX_EMAIL_PATTERN = '^[a-z0-9._%+-]+@[a-z0-9-.]+\\.[a-z]{2,4}$';
+const START_SHOW_MOVIES_0 = 0;
+const START_SHOW_MOVIES_12 = 12;
+const START_SHOW_MOVIES_8 = 8;
+const START_SHOW_MOVIES_7 = 7;
+const START_SHOW_MOVIES_5 = 5;
+const ADD_SHOW_MOVIES_0 = 0;
+const ADD_SHOW_MOVIES_2 = 2;
+const ADD_SHOW_MOVIES_3 = 3;
+const ADD_SHOW_MOVIES_7 = 7;
+const SCREENWIDTH_1280 = 1280;
+const SCREENWIDTH_889 = 889;
+const SCREENWIDTH_769 = 769;
+const SCREENWIDTH_768 = 768;
+const SCREENWIDTH_493 = 493;
+const SCREENWIDTH_492 = 492;
+
+const SHORT_DURATION_VALUE = 40;
+const ONE_HOUR_VALUE = 60;
+
+const MOVIES_API_IMAGE_LINK = "https://api.nomoreparties.co";
+
+export {
+	BASE_URL, BEST_FILMS_API, 
+	MOVIES_API_IMAGE_LINK, 
+	NTHG_FOUND_MSG, 
+	GET_BF_ERROR, 
+	USER_ALREADY_EXIST, 
+	INTERNAL_SERVER_ERROR, 
+	EMAIL_OR_PASS_NOTVALID, 
+	PROFILE_UPDATED_SUCESSFULLY,
+	HELLO_MSG, EMAIL_VALIDATION_ERROR_MSG,
+	START_SHOW_MOVIES_0, START_SHOW_MOVIES_12, START_SHOW_MOVIES_8, START_SHOW_MOVIES_7, START_SHOW_MOVIES_5,
+	ADD_SHOW_MOVIES_0, ADD_SHOW_MOVIES_2, ADD_SHOW_MOVIES_3, ADD_SHOW_MOVIES_7, SHORT_DURATION_VALUE, ONE_HOUR_VALUE,
+	SCREENWIDTH_1280, SCREENWIDTH_889, SCREENWIDTH_769, SCREENWIDTH_768, SCREENWIDTH_493, SCREENWIDTH_492,
+	UNAUTHORIZED_ERROR_401_CHECK, CONFLICT_ERROR_409_CHECK, 
+	MIN_LENGTH_VALUE, MAX_LENGTH_VALUE, MIN_PASS_LENGTH_VALUE, REGEX_NAME_PATTERN, REGEX_EMAIL_PATTERN
+};
+
